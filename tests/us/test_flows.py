@@ -104,3 +104,15 @@ def test_dashboard_builds_with_partial_data(tmp_path, monkeypatch):
     monkeypatch.setattr(dashboard, "SITE", tmp_path / "site")
     dashboard.build()
     assert (tmp_path / "site" / "index.html").exists()
+
+
+def test_operating_companies_filter(tmp_path):
+    import json as _json
+    from efm.us.flows import operating_companies
+    from efm.core.store import Store
+    s = Store("test"); s.base = tmp_path
+    (tmp_path / "ref").mkdir()
+    (tmp_path / "ref" / "listed.json").write_text(_json.dumps({"listed": {"1": "A", "3": "P"}}))
+    q = pd.DataFrame([{"cik": "1", "company": "Acme Inc"}, {"cik": "2", "company": "Federal Home Loan Bank of New York"},
+                      {"cik": "3", "company": "PROSHARES TRUST II"}])
+    assert list(operating_companies(q, s)["cik"]) == ["1"]

@@ -23,7 +23,11 @@ from .edgar import EdgarClient
 
 HEDGE_RATIO = 0.45  # 発行額に対するヘッジ売りの比率（初期値）
 # Claudeに渡す前の絞り込み：冒頭に「転換社債の価格決定」の言い回しがある文書だけ（費用を抑えるため）
-_PRICING_HINT = re.compile(r"pric(?:es|ed|ing)[^.]{0,200}(?:convertible|exchangeable)|(?:convertible|exchangeable)[^.]{0,200}pric(?:es|ed|ing)", re.I)
+_PRICING_HINT = re.compile(
+    # 金額の小数点（$1.3 billion、3.25%）を含むので、文の区切りではなく文字数で範囲を決める
+    r"\bpric(?:es|ed|ing)\b.{0,250}?(?:convertible|exchangeable).{0,60}?notes"
+    r"|(?:convertible|exchangeable).{0,60}?notes.{0,250}?\bpric(?:es|ed|ing)\b",
+    re.I)
 SEARCH = "https://efts.sec.gov/LATEST/search-index"
 
 _PROMPT = """You read an SEC filing (usually an 8-K or its press release exhibit) about convertible notes.
@@ -130,7 +134,8 @@ def collect(client: EdgarClient, day: date, log) -> tuple[list[dict], dict]:
         try:
             html = client.get(d["url"], max_bytes=300_000).decode("utf-8", errors="ignore")
             text = re.sub(r"\s+", " ", BeautifulSoup(html, "lxml").get_text(" "))[:12000]
-            if not _PRICING_HINT.search(text[:4000]):
+            # 8-K本体は冒頭が定型の表紙なので、本文全体で探す
+            if not _PRICING_HINT.search(text):
                 continue
             data = llm.ask_json(_PROMPT + text)
         except Exception as exc:

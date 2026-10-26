@@ -83,7 +83,7 @@ def daily_components() -> pd.DataFrame:
     if ok_days:
         first, last = date.fromisoformat(ok_days[0]), date.fromisoformat(ok_days[-1])
         for flow in flows.FLOWS.values():
-            q = flows.FlowStore(STORE, flow).load()
+            q = flows.operating_companies(flows.FlowStore(STORE, flow).load(), STORE)
             if flow.name == "stock_issuance":
                 q = flows.subtract_captured(q, _captured_primary(offs))
             est = flows.daily_estimate(q, until=last, blackout=flow.blackout, since=first)
@@ -195,7 +195,8 @@ def build() -> None:
         d["cash_musd"] = (d["cash_usd"].fillna(0) / 1e6).round(1)
         payload["mergers"] = _records(d, ["filed", "target", "acquirer", "cash_per_share_usd", "stock_consideration", "cash_musd", "source_url"])
 
-    payload["coverage"] = {f.name: flows.coverage(flows.FlowStore(STORE, f).load()) for f in flows.FLOWS.values()}
+    payload["coverage"] = {f.name: flows.coverage(flows.operating_companies(flows.FlowStore(STORE, f).load(), STORE))
+                           for f in flows.FLOWS.values()}
 
     conv = STORE.read_all("converts")
     if not conv.empty and "principal_usd" in conv:

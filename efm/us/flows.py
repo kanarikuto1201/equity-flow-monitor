@@ -18,6 +18,7 @@
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
 from datetime import date, timedelta
 
@@ -195,7 +196,46 @@ def refresh(client: EdgarClient, store, flow: Flow, log, only_ciks: set[str] | N
     return new
 
 
+FUND_NAME = re.compile(r"\b(ETF|ETFS|FUND|FUNDS|PROSHARES|ISHARES|SPDR|INVESCO DB|GRAYSCALE|COMMODITY|BITCOIN|ETHER|ETHEREUM|"
+                       r"FEDERAL HOME LOAN BANK|TRUST II|TRUST III)\b", re.I)
+
+
+def refresh_listed(client: EdgarClient, store, log) -> None:
+    """取引所に上場している会社のCIK一覧を保存する（非上場の発行体やファンドを集計から除くため）。"""
+    data = json.loads(client.get("https://www.sec.gov/files/company_tickers_exchange.json"))
+    fields = data.get("fields", [])
+    rows = [dict(zip(fields, r)) for r in data.get("data", [])]
+    listed = {str(int(r["cik"])): r.get("name", "") for r in rows
+              if r.get("exchange") in ("Nasdaq", "NYSE", "NYSE American", "NYSE Arca", "CBOE", "Cboe BZX")}
+    path = store.base / "ref" / "listed.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps({"refreshed": date.today().isoformat(), "listed": listed}, ensure_ascii=False), encoding="utf-8")
+    log(f"上場会社の一覧: {len(listed):,} 社")
+
+
+def listed_ciks(store) -> set[str] | None:
+    path = store.base / "ref" / "listed.json"
+    if not path.exists():
+        return None
+    return set(json.loads(path.read_text(encoding="utf-8"))["listed"])
+
+
+def operating_companies(q: pd.DataFrame, store) -> pd.DataFrame:
+    """上場している事業会社だけに絞る（ETF・ファンド・連邦住宅貸付銀行・非上場REITなどを除く）。"""
+    if q.empty:
+        return q
+    listed = listed_ciks(store)
+    keep = ~q["company"].fillna("").astype(str).str.contains(FUND_NAME)
+    if listed is not None:
+        keep &= q["cik"].astype(str).isin(listed)
+    return q[keep]
+
+
 def refresh_all(client: EdgarClient, store, log, reporters: set[str]) -> None:
+    try:
+        refresh_listed(client, store, log)
+    except Exception as exc:
+        log(f"上場会社の一覧の取得に失敗 ({type(exc).__name__}: {exc})")
     for flow in FLOWS.values():
         fs = FlowStore(store, flow)
         if fs.is_stale():
