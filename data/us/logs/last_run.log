@@ -1,5 +1,215 @@
-[03:54:49 ET] SECへの接続を確認しました（798,155 バイト）
-[03:54:49 ET] 処理する日: ['2026-10-23']
-[03:54:50 ET] 2026-10-23: 提出書類 3,333 件
-[03:56:35 ET] 2026-10-23: 完了 {'filings': 3333, 'form4_filings': 533, 'form4_errors': 0, 'form144_filings': 124, 'form144_errors': 0, 'prospectuses': 11, 'prospectus_errors': 0, 'claude_calls': 8, 'registrations': 3, 'seconds': 106}
-[03:56:35 ET] ダッシュボードを作成しました
+[03:58:10 ET] SECへの接続を確認しました（797,862 バイト）
+[03:58:10 ET] 処理する日: ['2026-07-20', '2026-07-21', '2026-07-22', '2026-07-23', '2026-07-24', '2026-07-27', '2026-07-28', '2026-07-29', '2026-07-30', '2026-07-31', '2026-08-03', '2026-08-04', '2026-08-05', '2026-08-06', '2026-08-07', '2026-08-10', '2026-08-11', '2026-08-12', '2026-08-13', '2026-08-14', '2026-08-17', '2026-08-18', '2026-08-19', '2026-08-20', '2026-08-21', '2026-08-24', '2026-08-25', '2026-08-26', '2026-08-27', '2026-08-28', '2026-08-31', '2026-09-01', '2026-09-02', '2026-09-03', '2026-09-04', '2026-09-07', '2026-09-08', '2026-09-09', '2026-09-10', '2026-09-11', '2026-09-14', '2026-09-15', '2026-09-16', '2026-09-17', '2026-09-18', '2026-09-21', '2026-09-22', '2026-09-23', '2026-09-24', '2026-09-25', '2026-09-28', '2026-09-29', '2026-09-30', '2026-10-01', '2026-10-02', '2026-10-05', '2026-10-06', '2026-10-07', '2026-10-08', '2026-10-09', '2026-10-12', '2026-10-13', '2026-10-14', '2026-10-15', '2026-10-16', '2026-10-19', '2026-10-20', '2026-10-21', '2026-10-22', '2026-10-23']
+[03:58:10 ET] 2026-07-20: 提出書類 2,160 件
+[03:59:12 ET] 2026-07-20: 完了 {'filings': 2160, 'form4_filings': 310, 'form4_errors': 0, 'form144_filings': 64, 'form144_errors': 0, 'prospectuses': 6, 'prospectus_errors': 0, 'claude_calls': 4, 'registrations': 7, 'seconds': 62}
+[03:59:12 ET] 2026-07-21: 提出書類 2,423 件
+[03:59:56 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/2116230/0001929980-26-000373.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:00:04 ET] 2026-07-21: 完了 {'filings': 2423, 'form4_filings': 233, 'form4_errors': 0, 'form144_filings': 44, 'form144_errors': 0, 'prospectuses': 13, 'prospectus_errors': 1, 'claude_calls': 5, 'registrations': 3, 'seconds': 52}
+[04:00:04 ET] 2026-07-22: 提出書類 2,712 件
+[04:00:48 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/2022308/0001477932-26-004453.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:01:05 ET] 2026-07-22: 完了 {'filings': 2712, 'form4_filings': 262, 'form4_errors': 0, 'form144_filings': 45, 'form144_errors': 0, 'prospectuses': 9, 'prospectus_errors': 1, 'claude_calls': 6, 'registrations': 5, 'seconds': 61}
+[04:01:05 ET] 2026-07-23: 提出書類 2,815 件
+[04:01:53 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1983736/0001493152-26-034403.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:02:03 ET] 2026-07-23: 完了 {'filings': 2815, 'form4_filings': 263, 'form4_errors': 0, 'form144_filings': 59, 'form144_errors': 0, 'prospectuses': 10, 'prospectus_errors': 1, 'claude_calls': 5, 'registrations': 5, 'seconds': 58}
+[04:02:04 ET] 2026-07-24: 提出書類 3,168 件
+[04:03:15 ET] 2026-07-24: 完了 {'filings': 3168, 'form4_filings': 310, 'form4_errors': 0, 'form144_filings': 52, 'form144_errors': 0, 'prospectuses': 10, 'prospectus_errors': 0, 'claude_calls': 10, 'registrations': 6, 'seconds': 72}
+[04:03:15 ET] 2026-07-27: 提出書類 2,985 件
+[04:04:15 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1692415/0001493152-26-034835.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:04:25 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1949257/0001213900-26-081556.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:04:26 ET] 2026-07-27: 完了 {'filings': 2985, 'form4_filings': 282, 'form4_errors': 0, 'form144_filings': 83, 'form144_errors': 0, 'prospectuses': 14, 'prospectus_errors': 2, 'claude_calls': 6, 'registrations': 4, 'seconds': 71}
+[04:04:26 ET] 2026-07-28: 提出書類 4,162 件
+[04:05:48 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1826011/0001493152-26-034959.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:05:53 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/826675/0000826675-26-000084.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:06:03 ET] 2026-07-28: 完了 {'filings': 4162, 'form4_filings': 419, 'form4_errors': 0, 'form144_filings': 135, 'form144_errors': 0, 'prospectuses': 13, 'prospectus_errors': 2, 'claude_calls': 6, 'registrations': 4, 'seconds': 97}
+[04:06:03 ET] 2026-07-29: 提出書類 4,404 件
+[04:07:11 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1856084/0001213900-26-082575.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:07:12 ET] 2026-07-29: 完了 {'filings': 4404, 'form4_filings': 343, 'form4_errors': 0, 'form144_filings': 102, 'form144_errors': 0, 'prospectuses': 12, 'prospectus_errors': 1, 'claude_calls': 4, 'registrations': 10, 'seconds': 70}
+[04:07:13 ET] 2026-07-30: 提出書類 4,142 件
+[04:08:27 ET] 2026-07-30: 完了 {'filings': 4142, 'form4_filings': 363, 'form4_errors': 0, 'form144_filings': 103, 'form144_errors': 0, 'prospectuses': 11, 'prospectus_errors': 0, 'claude_calls': 6, 'registrations': 2, 'seconds': 75}
+[04:08:27 ET] 2026-07-31: 提出書類 4,210 件
+[04:09:51 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1072379/0001104659-26-089290.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:10:01 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1980210/0001213900-26-083640.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:10:06 ET] 2026-07-31: 完了 {'filings': 4210, 'form4_filings': 333, 'form4_errors': 0, 'form144_filings': 115, 'form144_errors': 0, 'prospectuses': 16, 'prospectus_errors': 2, 'claude_calls': 13, 'registrations': 12, 'seconds': 99}
+[04:10:06 ET] 2026-08-03: 提出書類 4,148 件
+[04:12:07 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1659617/0001437749-26-025335.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:12:15 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1770501/0001493152-26-035705.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:12:15 ET] 2026-08-03: 完了 {'filings': 4148, 'form4_filings': 551, 'form4_errors': 0, 'form144_filings': 329, 'form144_errors': 0, 'prospectuses': 9, 'prospectus_errors': 2, 'claude_calls': 4, 'registrations': 3, 'seconds': 129}
+[04:12:15 ET] 2026-08-04: 提出書類 4,729 件
+[04:14:49 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/2080216/0001193125-26-333135.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:15:18 ET] 2026-08-04: 完了 {'filings': 4729, 'form4_filings': 927, 'form4_errors': 0, 'form144_filings': 239, 'form144_errors': 0, 'prospectuses': 18, 'prospectus_errors': 1, 'claude_calls': 12, 'registrations': 1, 'seconds': 182}
+[04:15:18 ET] 2026-08-05: 提出書類 4,090 件
+[04:17:39 ET] 2026-08-05: 完了 {'filings': 4090, 'form4_filings': 726, 'form4_errors': 0, 'form144_filings': 196, 'form144_errors': 0, 'prospectuses': 17, 'prospectus_errors': 0, 'claude_calls': 10, 'registrations': 4, 'seconds': 142}
+[04:17:40 ET] 2026-08-06: 提出書類 4,958 件
+[04:19:10 ET] Form 4の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1772720/0001192482-26-000435.txt (https://www.sec.gov/Archives/edgar/data/1772720/0001192482-26-000435.txt)
+[04:19:24 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1991792/0001193125-26-336792.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:19:40 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1795091/0001213900-26-086149.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:19:58 ET] 2026-08-06: 完了 {'filings': 4958, 'form4_filings': 562, 'form4_errors': 1, 'form144_filings': 175, 'form144_errors': 0, 'prospectuses': 30, 'prospectus_errors': 2, 'claude_calls': 14, 'registrations': 4, 'seconds': 139}
+[04:19:58 ET] 2026-08-07: 提出書類 4,267 件
+[04:22:22 ET] 2026-08-07: 完了 {'filings': 4267, 'form4_filings': 560, 'form4_errors': 0, 'form144_filings': 209, 'form144_errors': 0, 'prospectuses': 23, 'prospectus_errors': 0, 'claude_calls': 17, 'registrations': 15, 'seconds': 144}
+[04:22:22 ET] 2026-08-10: 提出書類 3,480 件
+[04:24:10 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1527762/0001493152-26-036918.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:24:55 ET] 2026-08-10: 完了 {'filings': 3480, 'form4_filings': 517, 'form4_errors': 0, 'form144_filings': 249, 'form144_errors': 0, 'prospectuses': 36, 'prospectus_errors': 1, 'claude_calls': 17, 'registrations': 7, 'seconds': 153}
+[04:24:55 ET] 2026-08-11: 提出書類 4,168 件
+[04:25:12 ET] Form 144の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1770847/0001957799-26-000151.txt (https://www.sec.gov/Archives/edgar/data/1770847/0001957799-26-000151.txt)
+[04:27:12 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/2100805/0001104659-26-094083.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:27:17 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1332551/0001193125-26-344627.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:27:35 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/2075109/0001213900-26-087808.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:27:49 ET] 2026-08-11: 完了 {'filings': 4168, 'form4_filings': 639, 'form4_errors': 0, 'form144_filings': 207, 'form144_errors': 1, 'prospectuses': 29, 'prospectus_errors': 3, 'claude_calls': 11, 'registrations': 5, 'seconds': 174}
+[04:27:49 ET] 2026-08-12: 提出書類 3,947 件
+[04:30:04 ET] 2026-08-12: 完了 {'filings': 3947, 'form4_filings': 606, 'form4_errors': 0, 'form144_filings': 167, 'form144_errors': 0, 'prospectuses': 22, 'prospectus_errors': 0, 'claude_calls': 12, 'registrations': 4, 'seconds': 135}
+[04:30:04 ET] 2026-08-13: 提出書類 5,043 件
+[04:31:48 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1108205/0001108205-26-000116.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:31:55 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/2022416/0001178913-26-004116.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:32:26 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1395942/0001104659-26-095398.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:32:26 ET] 2026-08-13: 完了 {'filings': 5043, 'form4_filings': 464, 'form4_errors': 0, 'form144_filings': 188, 'form144_errors': 0, 'prospectuses': 22, 'prospectus_errors': 3, 'claude_calls': 10, 'registrations': 1, 'seconds': 142}
+[04:32:26 ET] 2026-08-14: 提出書類 8,221 件
+[04:34:23 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1991261/0001493152-26-038282.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:34:39 ET] 2026-08-14: 完了 {'filings': 8221, 'form4_filings': 506, 'form4_errors': 0, 'form144_filings': 234, 'form144_errors': 0, 'prospectuses': 18, 'prospectus_errors': 1, 'claude_calls': 13, 'registrations': 2, 'seconds': 133}
+[04:34:39 ET] 2026-08-17: 提出書類 3,168 件
+[04:36:48 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1173313/0001213900-26-090777.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:36:52 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1173313/0001213900-26-090778.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:36:56 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1173313/0001213900-26-090779.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:37:06 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1872090/0001104659-26-097706.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:37:06 ET] 2026-08-17: 完了 {'filings': 3168, 'form4_filings': 652, 'form4_errors': 0, 'form144_filings': 311, 'form144_errors': 0, 'prospectuses': 11, 'prospectus_errors': 4, 'claude_calls': 3, 'registrations': 5, 'seconds': 148}
+[04:37:07 ET] 2026-08-18: 提出書類 3,580 件
+[04:39:56 ET] 2026-08-18: 完了 {'filings': 3580, 'form4_filings': 1012, 'form4_errors': 0, 'form144_filings': 240, 'form144_errors': 0, 'prospectuses': 10, 'prospectus_errors': 0, 'claude_calls': 5, 'registrations': 4, 'seconds': 169}
+[04:39:56 ET] 2026-08-19: 提出書類 2,947 件
+[04:41:54 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/2132582/0001193125-26-356916.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:42:02 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1001907/0001437749-26-028568.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:42:06 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/2090646/0001493152-26-039115.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:42:10 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1682149/0001104659-26-098427.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:42:26 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1083220/0001104659-26-098462.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:42:31 ET] 2026-08-19: 完了 {'filings': 2947, 'form4_filings': 668, 'form4_errors': 0, 'form144_filings': 221, 'form144_errors': 0, 'prospectuses': 21, 'prospectus_errors': 5, 'claude_calls': 9, 'registrations': 2, 'seconds': 155}
+[04:42:31 ET] 2026-08-20: 提出書類 3,041 件
+[04:44:01 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1892704/0001493152-26-039415.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:44:16 ET] 2026-08-20: 完了 {'filings': 3041, 'form4_filings': 465, 'form4_errors': 0, 'form144_filings': 189, 'form144_errors': 0, 'prospectuses': 16, 'prospectus_errors': 1, 'claude_calls': 8, 'registrations': 6, 'seconds': 105}
+[04:44:17 ET] 2026-08-21: 提出書類 3,719 件
+[04:46:21 ET] 2026-08-21: 完了 {'filings': 3719, 'form4_filings': 574, 'form4_errors': 0, 'form144_filings': 196, 'form144_errors': 0, 'prospectuses': 11, 'prospectus_errors': 0, 'claude_calls': 11, 'registrations': 6, 'seconds': 125}
+[04:46:21 ET] 2026-08-24: 提出書類 3,874 件
+[04:48:37 ET] 2026-08-24: 完了 {'filings': 3874, 'form4_filings': 656, 'form4_errors': 0, 'form144_filings': 200, 'form144_errors': 0, 'prospectuses': 13, 'prospectus_errors': 0, 'claude_calls': 11, 'registrations': 7, 'seconds': 136}
+[04:48:37 ET] 2026-08-25: 提出書類 3,552 件
+[04:50:11 ET] 2026-08-25: 完了 {'filings': 3552, 'form4_filings': 500, 'form4_errors': 0, 'form144_filings': 165, 'form144_errors': 0, 'prospectuses': 6, 'prospectus_errors': 0, 'claude_calls': 4, 'registrations': 6, 'seconds': 94}
+[04:50:11 ET] 2026-08-26: 提出書類 4,491 件
+[04:51:38 ET] 2026-08-26: 完了 {'filings': 4491, 'form4_filings': 464, 'form4_errors': 0, 'form144_filings': 110, 'form144_errors': 0, 'prospectuses': 7, 'prospectus_errors': 0, 'claude_calls': 6, 'registrations': 2, 'seconds': 87}
+[04:51:38 ET] 2026-08-27: 提出書類 5,415 件
+[04:53:00 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1912884/0001213900-26-094237.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:53:05 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1907223/0001213900-26-094216.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:53:10 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1948864/0001493152-26-040284.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:53:10 ET] 2026-08-27: 完了 {'filings': 5415, 'form4_filings': 425, 'form4_errors': 0, 'form144_filings': 139, 'form144_errors': 0, 'prospectuses': 10, 'prospectus_errors': 3, 'claude_calls': 3, 'registrations': 2, 'seconds': 92}
+[04:53:10 ET] 2026-08-28: 提出書類 5,990 件
+[04:54:19 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1914805/0001493152-26-040638.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:54:37 ET] 2026-08-28: 完了 {'filings': 5990, 'form4_filings': 382, 'form4_errors': 0, 'form144_filings': 115, 'form144_errors': 0, 'prospectuses': 11, 'prospectus_errors': 1, 'claude_calls': 8, 'registrations': 11, 'seconds': 87}
+[04:54:37 ET] 2026-08-31: 提出書類 4,905 件
+[04:55:50 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1498403/0001178913-26-004339.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:55:54 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1602409/0001493152-26-040799.txt (Claudeの返答からJSONを読み取れませんでした)
+[04:56:01 ET] 2026-08-31: 完了 {'filings': 4905, 'form4_filings': 377, 'form4_errors': 0, 'form144_filings': 130, 'form144_errors': 0, 'prospectuses': 11, 'prospectus_errors': 2, 'claude_calls': 6, 'registrations': 8, 'seconds': 84}
+[04:56:01 ET] 2026-09-01: 提出書類 3,511 件
+[04:57:53 ET] 2026-09-01: 完了 {'filings': 3511, 'form4_filings': 518, 'form4_errors': 0, 'form144_filings': 258, 'form144_errors': 0, 'prospectuses': 8, 'prospectus_errors': 0, 'claude_calls': 6, 'registrations': 5, 'seconds': 112}
+[04:57:53 ET] 2026-09-02: 提出書類 3,404 件
+[05:01:08 ET] 2026-09-02: 完了 {'filings': 3404, 'form4_filings': 820, 'form4_errors': 0, 'form144_filings': 225, 'form144_errors': 0, 'prospectuses': 2, 'prospectus_errors': 0, 'claude_calls': 2, 'registrations': 3, 'seconds': 195}
+[05:01:08 ET] 2026-09-03: 提出書類 3,043 件
+[05:04:58 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/2004024/0001213900-26-096975.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:05:04 ET] 2026-09-03: 完了 {'filings': 3043, 'form4_filings': 958, 'form4_errors': 0, 'form144_filings': 185, 'form144_errors': 0, 'prospectuses': 6, 'prospectus_errors': 1, 'claude_calls': 4, 'registrations': 7, 'seconds': 236}
+[05:05:05 ET] 2026-09-04: 提出書類 2,707 件
+[05:06:40 ET] 2026-09-04: 完了 {'filings': 2707, 'form4_filings': 441, 'form4_errors': 0, 'form144_filings': 160, 'form144_errors': 0, 'prospectuses': 10, 'prospectus_errors': 0, 'claude_calls': 7, 'registrations': 4, 'seconds': 95}
+[05:06:40 ET] 2026-09-07: インデックスなし（休日として記録）
+[05:06:40 ET] 2026-09-08: 提出書類 2,873 件
+[05:08:05 ET] 2026-09-08: 完了 {'filings': 2873, 'form4_filings': 484, 'form4_errors': 0, 'form144_filings': 168, 'form144_errors': 0, 'prospectuses': 12, 'prospectus_errors': 0, 'claude_calls': 0, 'registrations': 6, 'seconds': 86}
+[05:08:05 ET] 2026-09-09: 提出書類 2,453 件
+[05:09:34 ET] 2026-09-09: 完了 {'filings': 2453, 'form4_filings': 495, 'form4_errors': 0, 'form144_filings': 130, 'form144_errors': 0, 'prospectuses': 19, 'prospectus_errors': 0, 'claude_calls': 2, 'registrations': 7, 'seconds': 88}
+[05:09:34 ET] 2026-09-10: 提出書類 2,615 件
+[05:11:13 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1845257/0001193125-26-387307.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:11:16 ET] 2026-09-10: 完了 {'filings': 2615, 'form4_filings': 508, 'form4_errors': 0, 'form144_filings': 139, 'form144_errors': 0, 'prospectuses': 19, 'prospectus_errors': 1, 'claude_calls': 7, 'registrations': 5, 'seconds': 102}
+[05:11:16 ET] 2026-09-11: 提出書類 2,548 件
+[05:12:35 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1018724/0001104659-26-107122.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:13:11 ET] 2026-09-11: 完了 {'filings': 2548, 'form4_filings': 422, 'form4_errors': 0, 'form144_filings': 179, 'form144_errors': 0, 'prospectuses': 25, 'prospectus_errors': 1, 'claude_calls': 12, 'registrations': 11, 'seconds': 115}
+[05:13:11 ET] 2026-09-14: 提出書類 2,581 件
+[05:14:53 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1807887/0001493152-26-042518.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:14:59 ET] 2026-09-14: 完了 {'filings': 2581, 'form4_filings': 595, 'form4_errors': 0, 'form144_filings': 192, 'form144_errors': 0, 'prospectuses': 10, 'prospectus_errors': 1, 'claude_calls': 2, 'registrations': 3, 'seconds': 108}
+[05:14:59 ET] 2026-09-15: 提出書類 2,790 件
+[05:16:49 ET] 2026-09-15: 完了 {'filings': 2790, 'form4_filings': 504, 'form4_errors': 0, 'form144_filings': 212, 'form144_errors': 0, 'prospectuses': 13, 'prospectus_errors': 0, 'claude_calls': 5, 'registrations': 5, 'seconds': 110}
+[05:16:49 ET] 2026-09-16: 提出書類 2,356 件
+[05:18:36 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1958399/0001213900-26-100374.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:18:39 ET] 2026-09-16: 完了 {'filings': 2356, 'form4_filings': 610, 'form4_errors': 0, 'form144_filings': 131, 'form144_errors': 0, 'prospectuses': 12, 'prospectus_errors': 1, 'claude_calls': 5, 'registrations': 1, 'seconds': 110}
+[05:18:39 ET] 2026-09-17: 提出書類 2,603 件
+[05:20:40 ET] 2026-09-17: 完了 {'filings': 2603, 'form4_filings': 695, 'form4_errors': 0, 'form144_filings': 134, 'form144_errors': 0, 'prospectuses': 11, 'prospectus_errors': 0, 'claude_calls': 4, 'registrations': 3, 'seconds': 120}
+[05:20:40 ET] 2026-09-18: 提出書類 2,443 件
+[05:21:56 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1812447/0001096906-26-001387.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:22:05 ET] 2026-09-18: 完了 {'filings': 2443, 'form4_filings': 417, 'form4_errors': 0, 'form144_filings': 73, 'form144_errors': 0, 'prospectuses': 15, 'prospectus_errors': 1, 'claude_calls': 8, 'registrations': 13, 'seconds': 85}
+[05:22:05 ET] 2026-09-21: 提出書類 1,925 件
+[05:23:23 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/2075109/0001213900-26-101853.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:23:29 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1959224/0001213900-26-101784.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:23:29 ET] 2026-09-21: 完了 {'filings': 1925, 'form4_filings': 385, 'form4_errors': 0, 'form144_filings': 105, 'form144_errors': 0, 'prospectuses': 10, 'prospectus_errors': 2, 'claude_calls': 6, 'registrations': 5, 'seconds': 84}
+[05:23:29 ET] 2026-09-22: 提出書類 2,367 件
+[05:24:41 ET] 2026-09-22: 完了 {'filings': 2367, 'form4_filings': 408, 'form4_errors': 0, 'form144_filings': 86, 'form144_errors': 0, 'prospectuses': 7, 'prospectus_errors': 0, 'claude_calls': 3, 'registrations': 3, 'seconds': 72}
+[05:24:41 ET] 2026-09-23: 提出書類 2,485 件
+[05:25:33 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/826675/0000826675-26-000100.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:25:40 ET] 2026-09-23: 完了 {'filings': 2485, 'form4_filings': 293, 'form4_errors': 0, 'form144_filings': 56, 'form144_errors': 0, 'prospectuses': 11, 'prospectus_errors': 1, 'claude_calls': 3, 'registrations': 1, 'seconds': 59}
+[05:25:40 ET] 2026-09-24: 提出書類 2,443 件
+[05:26:51 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1098146/0001437749-26-031153.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:27:03 ET] 2026-09-24: 完了 {'filings': 2443, 'form4_filings': 315, 'form4_errors': 0, 'form144_filings': 56, 'form144_errors': 0, 'prospectuses': 20, 'prospectus_errors': 1, 'claude_calls': 12, 'registrations': 6, 'seconds': 83}
+[05:27:04 ET] 2026-09-25: 提出書類 3,397 件
+[05:28:12 ET] 2026-09-25: 完了 {'filings': 3397, 'form4_filings': 322, 'form4_errors': 0, 'form144_filings': 49, 'form144_errors': 0, 'prospectuses': 12, 'prospectus_errors': 0, 'claude_calls': 6, 'registrations': 5, 'seconds': 68}
+[05:28:12 ET] 2026-09-28: 提出書類 4,129 件
+[05:29:12 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1861841/0001213900-26-103771.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:29:23 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/2075109/0001213900-26-103671.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:29:26 ET] 2026-09-28: 完了 {'filings': 4129, 'form4_filings': 358, 'form4_errors': 0, 'form144_filings': 52, 'form144_errors': 0, 'prospectuses': 13, 'prospectus_errors': 2, 'claude_calls': 6, 'registrations': 5, 'seconds': 74}
+[05:29:26 ET] 2026-09-29: 提出書類 4,264 件
+[05:30:38 ET] 2026-09-29: 完了 {'filings': 4264, 'form4_filings': 395, 'form4_errors': 0, 'form144_filings': 52, 'form144_errors': 0, 'prospectuses': 10, 'prospectus_errors': 0, 'claude_calls': 6, 'registrations': 4, 'seconds': 72}
+[05:30:39 ET] 2026-09-30: 提出書類 2,627 件
+[05:31:58 ET] 2026-09-30: 完了 {'filings': 2627, 'form4_filings': 293, 'form4_errors': 0, 'form144_filings': 64, 'form144_errors': 0, 'prospectuses': 26, 'prospectus_errors': 0, 'claude_calls': 10, 'registrations': 6, 'seconds': 80}
+[05:31:59 ET] 2026-10-01: 提出書類 3,898 件
+[05:34:13 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1916331/0001185185-26-004478.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:34:29 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1783398/0001628280-26-064302.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:34:29 ET] 2026-10-01: 完了 {'filings': 3898, 'form4_filings': 752, 'form4_errors': 0, 'form144_filings': 193, 'form144_errors': 0, 'prospectuses': 14, 'prospectus_errors': 2, 'claude_calls': 8, 'registrations': 6, 'seconds': 151}
+[05:34:30 ET] 2026-10-02: 提出書類 4,413 件
+[05:38:19 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1976443/0001213900-26-106413.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:38:19 ET] 2026-10-02: 完了 {'filings': 4413, 'form4_filings': 1493, 'form4_errors': 0, 'form144_filings': 121, 'form144_errors': 0, 'prospectuses': 11, 'prospectus_errors': 1, 'claude_calls': 3, 'registrations': 7, 'seconds': 229}
+[05:38:19 ET] 2026-10-05: 提出書類 3,037 件
+[05:41:10 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1958133/0001185185-26-004577.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:41:22 ET] 2026-10-05: 完了 {'filings': 3037, 'form4_filings': 1192, 'form4_errors': 0, 'form144_filings': 102, 'form144_errors': 0, 'prospectuses': 13, 'prospectus_errors': 1, 'claude_calls': 4, 'registrations': 5, 'seconds': 183}
+[05:41:22 ET] 2026-10-06: 提出書類 2,370 件
+[05:42:35 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/2001557/0001140361-26-038821.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:42:42 ET] 2026-10-06: 完了 {'filings': 2370, 'form4_filings': 412, 'form4_errors': 0, 'form144_filings': 85, 'form144_errors': 0, 'prospectuses': 8, 'prospectus_errors': 1, 'claude_calls': 4, 'registrations': 6, 'seconds': 80}
+[05:42:42 ET] 2026-10-07: 提出書類 2,247 件
+[05:43:37 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1958713/0001213900-26-107491.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:43:41 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1944902/0001213900-26-107501.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:43:43 ET] 2026-10-07: 完了 {'filings': 2247, 'form4_filings': 320, 'form4_errors': 0, 'form144_filings': 39, 'form144_errors': 0, 'prospectuses': 8, 'prospectus_errors': 2, 'claude_calls': 2, 'registrations': 3, 'seconds': 62}
+[05:43:44 ET] 2026-10-08: 提出書類 2,179 件
+[05:44:34 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/2004489/0001493152-26-046355.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:44:41 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1649094/0001193125-26-417984.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:44:41 ET] 2026-10-08: 完了 {'filings': 2179, 'form4_filings': 306, 'form4_errors': 0, 'form144_filings': 39, 'form144_errors': 0, 'prospectuses': 5, 'prospectus_errors': 2, 'claude_calls': 1, 'registrations': 1, 'seconds': 57}
+[05:44:41 ET] 2026-10-09: 提出書類 2,321 件
+[05:45:30 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/2058584/0001493152-26-046431.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:45:34 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/2058584/0001493152-26-046432.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:45:40 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1402328/0001683168-26-007757.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:45:55 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1677576/0001104659-26-115075.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:46:03 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1958713/0001213900-26-108288.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:46:23 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1712762/0001493152-26-046454.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:46:23 ET] 2026-10-09: 完了 {'filings': 2321, 'form4_filings': 278, 'form4_errors': 0, 'form144_filings': 52, 'form144_errors': 0, 'prospectuses': 27, 'prospectus_errors': 6, 'claude_calls': 12, 'registrations': 9, 'seconds': 102}
+[05:46:23 ET] 2026-10-12: インデックスなし（休日として記録）
+[05:46:24 ET] 2026-10-13: 提出書類 3,121 件
+[05:47:47 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/2048271/0001493152-26-046878.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:47:56 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1958713/0001213900-26-108767.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:47:59 ET] 2026-10-13: 完了 {'filings': 3121, 'form4_filings': 511, 'form4_errors': 0, 'form144_filings': 116, 'form144_errors': 0, 'prospectuses': 10, 'prospectus_errors': 2, 'claude_calls': 4, 'registrations': 4, 'seconds': 96}
+[05:48:00 ET] 2026-10-14: 提出書類 2,270 件
+[05:49:16 ET] 2026-10-14: 完了 {'filings': 2270, 'form4_filings': 296, 'form4_errors': 0, 'form144_filings': 51, 'form144_errors': 0, 'prospectuses': 14, 'prospectus_errors': 0, 'claude_calls': 11, 'registrations': 2, 'seconds': 77}
+[05:49:16 ET] 2026-10-15: 提出書類 2,627 件
+[05:50:27 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1980210/0001213900-26-109619.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:50:30 ET] 2026-10-15: 完了 {'filings': 2627, 'form4_filings': 292, 'form4_errors': 0, 'form144_filings': 122, 'form144_errors': 0, 'prospectuses': 8, 'prospectus_errors': 1, 'claude_calls': 4, 'registrations': 1, 'seconds': 74}
+[05:50:30 ET] 2026-10-16: 提出書類 2,307 件
+[05:51:53 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1851003/0001193125-26-424229.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:51:53 ET] 2026-10-16: 完了 {'filings': 2307, 'form4_filings': 450, 'form4_errors': 0, 'form144_filings': 43, 'form144_errors': 0, 'prospectuses': 12, 'prospectus_errors': 1, 'claude_calls': 4, 'registrations': 6, 'seconds': 83}
+[05:51:53 ET] 2026-10-19: 提出書類 2,390 件
+[05:53:04 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1983736/0001493152-26-047591.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:53:05 ET] 2026-10-19: 完了 {'filings': 2390, 'form4_filings': 475, 'form4_errors': 0, 'form144_filings': 47, 'form144_errors': 0, 'prospectuses': 5, 'prospectus_errors': 1, 'claude_calls': 0, 'registrations': 2, 'seconds': 72}
+[05:53:05 ET] 2026-10-20: 提出書類 2,537 件
+[05:53:53 ET] 目論見書の読み取りに失敗: https://www.sec.gov/Archives/edgar/data/1991592/0001213900-26-110849.txt (Claudeの返答からJSONを読み取れませんでした)
+[05:53:53 ET] 2026-10-20: 完了 {'filings': 2537, 'form4_filings': 284, 'form4_errors': 0, 'form144_filings': 52, 'form144_errors': 0, 'prospectuses': 4, 'prospectus_errors': 1, 'claude_calls': 0, 'registrations': 3, 'seconds': 48}
+[05:53:53 ET] 2026-10-21: 提出書類 2,262 件
+[05:54:40 ET] 2026-10-21: 完了 {'filings': 2262, 'form4_filings': 204, 'form4_errors': 0, 'form144_filings': 46, 'form144_errors': 0, 'prospectuses': 10, 'prospectus_errors': 0, 'claude_calls': 6, 'registrations': 4, 'seconds': 46}
+[05:54:40 ET] 2026-10-22: 提出書類 2,282 件
+[05:55:30 ET] 2026-10-22: 完了 {'filings': 2282, 'form4_filings': 238, 'form4_errors': 0, 'form144_filings': 49, 'form144_errors': 0, 'prospectuses': 6, 'prospectus_errors': 0, 'claude_calls': 5, 'registrations': 3, 'seconds': 50}
+[05:55:30 ET] 2026-10-23: 提出書類 2,573 件
+[05:56:27 ET] 2026-10-23: 完了 {'filings': 2573, 'form4_filings': 235, 'form4_errors': 0, 'form144_filings': 62, 'form144_errors': 0, 'prospectuses': 11, 'prospectus_errors': 0, 'claude_calls': 8, 'registrations': 3, 'seconds': 57}
+[05:56:28 ET] ダッシュボードを作成しました
