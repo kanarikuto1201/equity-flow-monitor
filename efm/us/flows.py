@@ -196,7 +196,7 @@ def refresh(client: EdgarClient, store, flow: Flow, log, only_ciks: set[str] | N
     return new
 
 
-FUND_NAME = re.compile(r"\b(ETF|ETFS|FUND|FUNDS|PROSHARES|ISHARES|SPDR|INVESCO DB|GRAYSCALE|COMMODITY|BITCOIN|ETHER|ETHEREUM|"
+FUND_NAME = re.compile(r"\b(?:ETF|ETFS|FUND|FUNDS|PROSHARES|ISHARES|SPDR|INVESCO DB|GRAYSCALE|COMMODITY|BITCOIN|ETHER|ETHEREUM|"
                        r"FEDERAL HOME LOAN BANK|TRUST II|TRUST III)\b", re.I)
 
 
