@@ -2,7 +2,7 @@ from datetime import date
 
 import pandas as pd
 
-from efm.us.buybacks import quarterly_from_facts, daily_estimate, BLACKOUT_WEIGHT
+from efm.us.flows import quarterly_from_facts, daily_estimate, BLACKOUT_WEIGHT
 
 # 累計で報告されるキャッシュフロー（FY2025: 1月〜12月）。Q1=100, Q2=150, Q3=120, Q4=130
 FACTS = [
@@ -27,17 +27,17 @@ def test_quarters_from_cumulative():
 
 def test_daily_estimate_sums_and_blackout():
     q = pd.DataFrame([{"cik": "1", **x} for x in quarterly_from_facts(FACTS)])
-    d = daily_estimate(q, until=date(2026, 9, 30))
+    d = daily_estimate(q, until=date(2026, 9, 30), blackout=True)
     d.index = pd.to_datetime(d.index)
     # 報告済み四半期の配分は、四半期の実績と一致する
-    q3 = d.loc["2025-07-01":"2025-09-30", "buyback_reported"].sum()
+    q3 = d.loc["2025-07-01":"2025-09-30", "reported"].sum()
     assert abs(q3 - 120) < 1e-6
     # 未報告の期間（2026年4月以降）は、直近4四半期の平均（135）で推計される
-    est = d.loc["2026-04-01":"2026-06-30", "buyback_estimated"].sum()
+    est = d.loc["2026-04-01":"2026-06-30", "estimated"].sum()
     assert 125 < est <= 135
     # 期末の自粛期間中は、通常日より少ない
-    normal = d.loc["2025-08-12", "buyback_reported"]
-    blackout = d.loc["2025-09-25", "buyback_reported"]
+    normal = d.loc["2025-08-12", "reported"]
+    blackout = d.loc["2025-09-25", "reported"]
     assert abs(blackout / normal - BLACKOUT_WEIGHT) < 1e-9
 
 
@@ -74,3 +74,19 @@ def test_process_day_runs_with_fake_client(tmp_path, monkeypatch):
     stats, reporters = run.process_day(Fake(), date(2026, 10, 23))
     assert reporters == {"123"} and stats["filings"] == 1
     assert run.main(["--build-only"]) in (0, 1)
+
+
+def test_subtract_captured_offerings():
+    from efm.us.flows import subtract_captured
+    q = pd.DataFrame([{"cik": "123", "start": "2026-07-01", "end": "2026-09-30", "usd": 500.0, "filed": "2026-10-30"},
+                      {"cik": "123", "start": "2026-04-01", "end": "2026-06-30", "usd": 100.0, "filed": "2026-07-30"}])
+    captured = pd.DataFrame([{"cik": "0000123", "day": "20260812", "usd": 300.0},
+                             {"cik": "123", "day": "20260515", "usd": 400.0}])
+    out = subtract_captured(q, captured)
+    assert list(out["usd"]) == [200.0, 0.0]  # 目論見書で数えた分を除き、マイナスにはしない
+
+
+def test_convert_pricing_hint():
+    from efm.us.converts import _PRICING_HINT
+    assert _PRICING_HINT.search("Acme Corp Announces Pricing of $750 Million Convertible Senior Notes Offering")
+    assert not _PRICING_HINT.search("Acme Corp reports third quarter results; revenue grew 12%")

@@ -7,11 +7,11 @@
 <style>
   :root {
     --bg: #f7f7f4; --panel: #ffffff; --ink: #1d1d1b; --quiet: #6b6b66; --rule: #e4e3dd;
-    --supply: #c2410c; --supply2: #ea8a5a; --supply3: #f4c3a6; --demand: #15803d; --demand2: #86c79b; --demand3: #0f766e; --demand4: #a3d9a5; --line: #1d4ed8; --warn: #b45309;
+    --supply: #c2410c; --supply2: #ea8a5a; --supply3: #f4c3a6; --demand: #15803d; --demand2: #86c79b; --demand3: #0f766e; --demand4: #a3d9a5; --supply4: #9a3412; --supply5: #d97757; --supply6: #7c2d12; --line: #1d4ed8; --warn: #b45309;
   }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #151514; --panel: #1f1f1d; --ink: #ededea; --quiet: #a3a39c; --rule: #33332f;
-      --supply: #fb8b5a; --supply2: #c46a40; --supply3: #7c4a33; --demand: #4ade80; --demand2: #2f7a4a; --demand3: #2dd4bf; --demand4: #1f5a37; --line: #7aa2ff; --warn: #fbbf24; }
+      --supply: #fb8b5a; --supply2: #c46a40; --supply3: #7c4a33; --demand: #4ade80; --demand2: #2f7a4a; --demand3: #2dd4bf; --demand4: #1f5a37; --supply4: #fdba8c; --supply5: #a35233; --supply6: #fed7aa; --line: #7aa2ff; --warn: #fbbf24; }
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--ink);
@@ -59,7 +59,7 @@
 
   <section>
     <h2>主要数値</h2>
-    <p class="lead">実装済みの項目だけで計算した部分集計です（単位：10億ドル）。供給側のATM・社員への株式報酬・転換社債などが未実装のため、需給は実際よりやや良く見えます。</p>
+    <p class="lead">単位：10億ドル。供給側のうち、関係者以外のロックアップ解除後の売りと、買収対価株の売却はまだ入っていません。株式報酬・新株発行・自社株買いは四半期の実績を日割りした値で、未報告の期間は推計です。</p>
     <div class="kpis" id="kpis"></div>
   </section>
 
@@ -95,6 +95,12 @@
   </section>
 
   <section>
+    <h2>直近の転換社債（価格決定の発表）</h2>
+    <p class="lead">8-Kの発表からClaudeが読み取った内容。発行額の45%を、社債を買った投資家のヘッジ売り（空売り）として発行日の供給に数えています（初期値）。</p>
+    <div class="scroll" id="converts"></div>
+  </section>
+
+  <section>
     <h2>上場予定（S-1・F-1の新規提出）</h2>
     <div class="scroll" id="registrations"></div>
   </section>
@@ -103,7 +109,7 @@
     <h2>未実装の項目</h2>
     <ul class="todo">
       <li>需要：自社株買いの新規枠（8-K）の一覧</li>
-      <li>供給：ATMの実行額、社員への株式報酬、株式対価の買収、転換社債（ヘッジ売り・転換株）、ロックアップ解除後の推計売却</li>
+      <li>供給：関係者以外のロックアップ解除後の推計売却、株式対価の買収で渡った株の売却</li>
       <li>供給の壁（今後12か月のロックアップ解除予定表）、指数入替（別枠）</li>
       <li>発行体ベースの系列、確報（Z.1・10-Q）との突合、警戒シグナル、週次サマリー</li>
     </ul>
@@ -141,8 +147,11 @@ function render() {
   const k = d.kpi;
   const kpis = k ? [
     ["需給（直近4週）", k.net_4w], ["需給（直近13週）", k.net_13w],
-    ["自社株買い（直近4週・推計）", k.buyback_4w], ["現金M&A（直近4週）", k.mergers_4w],
-    ["IPO・増資（直近4週）", -k.offerings_4w], ["内部者の市場売却（直近4週）", -k.insider_sell_4w],
+    ["需要（直近13週）", k.demand_13w], ["供給（直近13週）", -k.supply_13w],
+    ["自社株買い（直近4週）", k.buyback_4w], ["現金M&A（直近4週）", k.mergers_4w],
+    ["IPO・増資（直近4週）", -k.offerings_4w], ["株式報酬（直近4週）", -k.sbc_4w],
+    ["ATM・私募などの新株（直近4週）", -k.issuance_4w], ["転換社債（直近4週）", -k.converts_4w],
+    ["内部者の市場売却（直近4週）", -k.insider_sell_4w],
     ["Form 144 売却予定（直近4週）", -k.form144_4w],
   ] : [];
   document.getElementById("kpis").innerHTML = kpis.length ? kpis.map(([l, v]) =>
@@ -159,6 +168,9 @@ function render() {
         { type: "bar", label: "IPO", data: w.ipo, backgroundColor: css("--supply"), stack: "s" },
         { type: "bar", label: "公募・売出し", data: w.follow_on, backgroundColor: css("--supply2"), stack: "s" },
         { type: "bar", label: "内部者の市場売却", data: w.insider_sell, backgroundColor: css("--supply3"), stack: "s" },
+        { type: "bar", label: "株式報酬", data: w.sbc, backgroundColor: css("--supply4"), stack: "s" },
+        { type: "bar", label: "ATM・私募などの新株", data: w.stock_issuance, backgroundColor: css("--supply5"), stack: "s" },
+        { type: "bar", label: "転換社債", data: w.converts, backgroundColor: css("--supply6"), stack: "s" },
         { type: "bar", label: "自社株買い（実績の配分）", data: w.buyback_reported, backgroundColor: css("--demand"), stack: "s" },
         { type: "bar", label: "自社株買い（推計）", data: w.buyback_estimated, backgroundColor: css("--demand2"), stack: "s" },
         { type: "bar", label: "現金M&A", data: w.cash_mergers, backgroundColor: css("--demand3"), stack: "s" },
@@ -205,8 +217,19 @@ function render() {
     { key: "stock_consideration", label: "株式対価" },
   ], d.mergers);
 
-  const cov = d.buyback_coverage || {};
-  if (cov.companies) document.getElementById("bbnote").textContent = `（対象 ${cov.companies.toLocaleString("ja-JP")} 社、報告済みの最新四半期末 ${cov.latest_end}）`;
+  const cv = d.coverage || {};
+  const n = k => (cv[k]?.companies ?? 0).toLocaleString("ja-JP");
+  if (cv.buyback) document.getElementById("bbnote").textContent = `（対象企業：自社株買い ${n("buyback")} 社、株式報酬 ${n("sbc")} 社、新株発行 ${n("stock_issuance")} 社、社債の転換 ${n("conversion")} 社）`;
+
+  table("converts", [
+    { key: "filed", label: "発表日", render: r => day(r.filed) },
+    { key: "issuer", label: "発行会社", render: r => r.url ? `<a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.issuer)}</a>` : esc(r.issuer) },
+    { key: "ticker", label: "銘柄" },
+    { key: "principal_musd", label: "発行額（100万ドル）", num: true, render: r => fmt(r.principal_musd) },
+    { key: "conversion_price_usd", label: "転換価格（ドル）", num: true, render: r => fmt(r.conversion_price_usd, 2) },
+    { key: "reference_price_usd", label: "発行時の株価（ドル）", num: true, render: r => fmt(r.reference_price_usd, 2) },
+    { key: "hedge_musd", label: "ヘッジ売り推計（100万ドル）", num: true, render: r => fmt(r.hedge_musd) },
+  ], d.converts);
 
   table("registrations", [
     { key: "filed", label: "提出日", render: r => day(r.filed) }, { key: "form", label: "書類" },

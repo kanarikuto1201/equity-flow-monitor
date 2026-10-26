@@ -17,7 +17,7 @@ import traceback
 from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
 
-from . import buybacks, insiders, mergers, offerings
+from . import converts, flows, insiders, mergers, offerings
 from ..core.store import Store
 
 STORE = Store("us")
@@ -72,7 +72,7 @@ def plan_days(status: dict, start: date | None, end: date | None, max_days: int,
     return todo[:max_days]
 
 
-COLLECTORS = ("insiders", "offerings", "mergers")
+COLLECTORS = ("insiders", "offerings", "mergers", "converts")
 
 
 def process_day(client: EdgarClient, day: date, collectors=COLLECTORS) -> tuple[dict, set[str]]:
@@ -95,6 +95,10 @@ def process_day(client: EdgarClient, day: date, collectors=COLLECTORS) -> tuple[
     if "mergers" in collectors:
         deals, s = mergers.collect(client, entries, day, log)
         STORE.write_day("mergers", day, deals)
+        stats.update(s)
+    if "converts" in collectors:
+        issues, s = converts.collect(client, day, log)
+        STORE.write_day("converts", day, issues)
         stats.update(s)
 
     reporters = {str(int(e.cik)) for e in entries if e.form in ("10-Q", "10-K", "10-Q/A", "10-K/A")}
@@ -152,7 +156,7 @@ def _main(argv=None) -> int:
     p.add_argument("--build-only", action="store_true")
     p.add_argument("--force", action="store_true", help="処理済みの日も取り直す")
     p.add_argument("--collectors", default=",".join(COLLECTORS), help="取得する項目（カンマ区切り）")
-    p.add_argument("--skip-buybacks", action="store_true", help="自社株買いデータの更新を省く")
+    p.add_argument("--skip-buybacks", action="store_true", help="XBRLデータ（自社株買い・株式報酬など）の更新を省く")
     p.add_argument("--retry-errors", action="store_true", help="読み取りに失敗した目論見書だけを読み直す")
     args = p.parse_args(argv)
 
@@ -188,15 +192,12 @@ def _main(argv=None) -> int:
             STORE.save_status(status)
         if not args.skip_buybacks:
             try:
-                if buybacks.profiles_are_stale(STORE):
-                    log("自社株買い：対象企業を選び直し、全社の四半期データを更新します")
-                    buybacks.refresh_profiles(client, STORE, log)
-                elif reporters:
-                    log(f"自社株買い：10-Q / 10-K を出した {len(reporters):,} 社を更新します")
-                    buybacks.refresh_profiles(client, STORE, log, only_ciks=reporters)
+                if reporters:
+                    log(f"XBRL：10-Q / 10-K を出した {len(reporters):,} 社を更新します")
+                flows.refresh_all(client, STORE, log, reporters)
             except Exception as exc:
                 failures += 1
-                error(f"自社株買いデータの更新に失敗 ({type(exc).__name__}: {exc})")
+                error(f"XBRLデータ（自社株買い・株式報酬など）の更新に失敗 ({type(exc).__name__}: {exc})")
                 log(traceback.format_exc())
         status["last_run"] = datetime.now(ET_ZONE).isoformat(timespec="seconds")
         status["last_run_requests"] = client.request_count
