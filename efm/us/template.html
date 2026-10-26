@@ -7,11 +7,11 @@
 <style>
   :root {
     --bg: #f7f7f4; --panel: #ffffff; --ink: #1d1d1b; --quiet: #6b6b66; --rule: #e4e3dd;
-    --supply: #c2410c; --supply2: #ea8a5a; --supply3: #f4c3a6; --demand: #15803d; --line: #1d4ed8; --warn: #b45309;
+    --supply: #c2410c; --supply2: #ea8a5a; --supply3: #f4c3a6; --demand: #15803d; --demand2: #86c79b; --demand3: #0f766e; --demand4: #a3d9a5; --line: #1d4ed8; --warn: #b45309;
   }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #151514; --panel: #1f1f1d; --ink: #ededea; --quiet: #a3a39c; --rule: #33332f;
-      --supply: #fb8b5a; --supply2: #c46a40; --supply3: #7c4a33; --demand: #4ade80; --line: #7aa2ff; --warn: #fbbf24; }
+      --supply: #fb8b5a; --supply2: #c46a40; --supply3: #7c4a33; --demand: #4ade80; --demand2: #2f7a4a; --demand3: #2dd4bf; --demand4: #1f5a37; --line: #7aa2ff; --warn: #fbbf24; }
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--ink);
@@ -59,13 +59,13 @@
 
   <section>
     <h2>主要数値</h2>
-    <p class="lead">実装済みの項目だけで計算した部分集計です（単位：10億ドル）。自社株買い・現金M&amp;Aなどの需要側は未実装のため、需給は実際より悪く見えます。</p>
+    <p class="lead">実装済みの項目だけで計算した部分集計です（単位：10億ドル）。供給側のATM・社員への株式報酬・転換社債などが未実装のため、需給は実際よりやや良く見えます。</p>
     <div class="kpis" id="kpis"></div>
   </section>
 
   <section>
     <h2>浮動株ベースの需給（週次、部分集計）</h2>
-    <p class="lead">下向きの棒が市場に出た株（供給）、上向きが吸収された株（需要）。線は13週の移動合計。</p>
+    <p class="lead">下向きの棒が市場に出た株（供給）、上向きが吸収された株（需要）。線は13週の移動合計。自社株買いは、報告済みの四半期は実績を配分した値、未報告の期間は直近4四半期の平均からの推計です。<span id="bbnote"></span></p>
     <div class="chart"><canvas id="flow"></canvas></div>
   </section>
 
@@ -89,6 +89,12 @@
   </section>
 
   <section>
+    <h2>直近の現金M&amp;A（上場企業の買収完了）</h2>
+    <p class="lead">上場廃止届と完了の8-Kから。現金対価 × 発行済株数を需要として数えています。株式対価の部分は数えません。</p>
+    <div class="scroll" id="mergers"></div>
+  </section>
+
+  <section>
     <h2>上場予定（S-1・F-1の新規提出）</h2>
     <div class="scroll" id="registrations"></div>
   </section>
@@ -96,7 +102,7 @@
   <section>
     <h2>未実装の項目</h2>
     <ul class="todo">
-      <li>需要：自社株買いの推計、現金M&amp;A</li>
+      <li>需要：自社株買いの新規枠（8-K）の一覧</li>
       <li>供給：ATMの実行額、社員への株式報酬、株式対価の買収、転換社債（ヘッジ売り・転換株）、ロックアップ解除後の推計売却</li>
       <li>供給の壁（今後12か月のロックアップ解除予定表）、指数入替（別枠）</li>
       <li>発行体ベースの系列、確報（Z.1・10-Q）との突合、警戒シグナル、週次サマリー</li>
@@ -135,6 +141,7 @@ function render() {
   const k = d.kpi;
   const kpis = k ? [
     ["需給（直近4週）", k.net_4w], ["需給（直近13週）", k.net_13w],
+    ["自社株買い（直近4週・推計）", k.buyback_4w], ["現金M&A（直近4週）", k.mergers_4w],
     ["IPO・増資（直近4週）", -k.offerings_4w], ["内部者の市場売却（直近4週）", -k.insider_sell_4w],
     ["Form 144 売却予定（直近4週）", -k.form144_4w],
   ] : [];
@@ -152,7 +159,10 @@ function render() {
         { type: "bar", label: "IPO", data: w.ipo, backgroundColor: css("--supply"), stack: "s" },
         { type: "bar", label: "公募・売出し", data: w.follow_on, backgroundColor: css("--supply2"), stack: "s" },
         { type: "bar", label: "内部者の市場売却", data: w.insider_sell, backgroundColor: css("--supply3"), stack: "s" },
-        { type: "bar", label: "内部者の市場買付", data: w.insider_buy, backgroundColor: css("--demand"), stack: "s" },
+        { type: "bar", label: "自社株買い（実績の配分）", data: w.buyback_reported, backgroundColor: css("--demand"), stack: "s" },
+        { type: "bar", label: "自社株買い（推計）", data: w.buyback_estimated, backgroundColor: css("--demand2"), stack: "s" },
+        { type: "bar", label: "現金M&A", data: w.cash_mergers, backgroundColor: css("--demand3"), stack: "s" },
+        { type: "bar", label: "内部者の市場買付", data: w.insider_buy, backgroundColor: css("--demand4"), stack: "s" },
         { type: "line", label: "需給 13週移動合計", data: w.net_13w, borderColor: css("--line"), backgroundColor: css("--line"), pointRadius: 0, borderWidth: 2, yAxisID: "y2" },
       ] },
       options: { maintainAspectRatio: false, interaction: { mode: "index", intersect: false },
@@ -185,6 +195,18 @@ function render() {
     { key: "musd", label: "金額（100万ドル）", num: true, render: r => r.offering_type === "atm" ? `枠 ${fmt(r.atm_musd)}` : fmt(r.musd) },
     { key: "lockup_days", label: "ロックアップ（日）", num: true, render: r => fmt(r.lockup_days, 0) },
   ], d.offerings);
+
+  table("mergers", [
+    { key: "filed", label: "届出日", render: r => day(r.filed) },
+    { key: "target", label: "買収された会社", render: r => r.source_url ? `<a href="${esc(r.source_url)}" target="_blank" rel="noopener">${esc(r.target)}</a>` : esc(r.target) },
+    { key: "acquirer", label: "買い手" },
+    { key: "cash_per_share_usd", label: "1株当たり現金（ドル）", num: true, render: r => fmt(r.cash_per_share_usd, 2) },
+    { key: "cash_musd", label: "現金総額（100万ドル）", num: true, render: r => fmt(r.cash_musd) },
+    { key: "stock_consideration", label: "株式対価" },
+  ], d.mergers);
+
+  const cov = d.buyback_coverage || {};
+  if (cov.companies) document.getElementById("bbnote").textContent = `（対象 ${cov.companies.toLocaleString("ja-JP")} 社、報告済みの最新四半期末 ${cov.latest_end}）`;
 
   table("registrations", [
     { key: "filed", label: "提出日", render: r => day(r.filed) }, { key: "form", label: "書類" },

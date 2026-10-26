@@ -17,7 +17,7 @@ import traceback
 from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
 
-from . import insiders, offerings
+from . import buybacks, insiders, mergers, offerings
 from ..core.store import Store
 
 STORE = Store("us")
@@ -87,7 +87,7 @@ def process_day(client: EdgarClient, day: date) -> dict:
 
     stats = {"filings": len(entries), **s1, **s2, "seconds": round(time.monotonic() - t0)}
     log(f"{day}: 完了 {stats}")
-    return stats
+    return stats, reporters
 
 
 def main(argv=None) -> int:
@@ -108,6 +108,8 @@ def _main(argv=None) -> int:
     p.add_argument("--max-days", type=int, default=5)
     p.add_argument("--build-only", action="store_true")
     p.add_argument("--force", action="store_true", help="処理済みの日も取り直す")
+    p.add_argument("--collectors", default=",".join(COLLECTORS), help="取得する項目（カンマ区切り）")
+    p.add_argument("--skip-buybacks", action="store_true", help="自社株買いデータの更新を省く")
     args = p.parse_args(argv)
 
     status = STORE.load_status()
@@ -117,10 +119,14 @@ def _main(argv=None) -> int:
         log(client.check_access())
         days = plan_days(status, args.start, args.end, args.max_days, args.force)
         log(f"処理する日: {[d.isoformat() for d in days] or 'なし'}")
+        collectors = tuple(c.strip() for c in args.collectors.split(",") if c.strip())
+        reporters: set[str] = set()
         for day in days:
             try:
-                stats = process_day(client, day)
-                status["days"][day.isoformat()] = {"state": "ok", **stats}
+                stats, rep = process_day(client, day, collectors)
+                reporters |= rep
+                prev = status["days"].get(day.isoformat(), {}) if collectors != COLLECTORS else {}
+                status["days"][day.isoformat()] = {**prev, "state": "ok", **stats}
             except EdgarNotFound:
                 # 過去日でインデックスがない＝米国の休日。最新日なら未確定なので次回に回す
                 if day < latest_complete_day():
@@ -133,6 +139,18 @@ def _main(argv=None) -> int:
                 error(f"{day}: 失敗しました ({type(exc).__name__}: {exc})")
                 log(traceback.format_exc())
             STORE.save_status(status)
+        if not args.skip_buybacks:
+            try:
+                if buybacks.profiles_are_stale(STORE):
+                    log("自社株買い：対象企業を選び直し、全社の四半期データを更新します")
+                    buybacks.refresh_profiles(client, STORE, log)
+                elif reporters:
+                    log(f"自社株買い：10-Q / 10-K を出した {len(reporters):,} 社を更新します")
+                    buybacks.refresh_profiles(client, STORE, log, only_ciks=reporters)
+            except Exception as exc:
+                failures += 1
+                error(f"自社株買いデータの更新に失敗 ({type(exc).__name__}: {exc})")
+                log(traceback.format_exc())
         status["last_run"] = datetime.now(ET_ZONE).isoformat(timespec="seconds")
         status["last_run_requests"] = client.request_count
         STORE.save_status(status)

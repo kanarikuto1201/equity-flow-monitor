@@ -14,6 +14,7 @@ from dataclasses import dataclass, asdict
 
 from bs4 import BeautifulSoup
 
+from ..core import llm
 from .edgar import EdgarClient, IndexEntry, EdgarNotFound
 
 PROSPECTUS_FORMS = {"424B4", "424B5", "424B7"}
@@ -92,20 +93,7 @@ def prospectus_text(raw: bytes, limit: int = 14000) -> str:
 
 
 def _claude_extract(text: str) -> dict:
-    import anthropic
-
-    client = anthropic.Anthropic()
-    model = os.environ.get("CLAUDE_MODEL", "claude-haiku-5-5")
-    msg = client.messages.create(
-        model=model,
-        max_tokens=600,
-        messages=[{"role": "user", "content": _PROMPT + text}],
-    )
-    out = "".join(block.text for block in msg.content if getattr(block, "type", "") == "text")
-    m = re.search(r"\{.*\}", out, re.S)
-    if not m:
-        raise ValueError("Claudeの返答からJSONを読み取れませんでした")
-    return json.loads(m.group(0))
+    return llm.ask_json(_PROMPT + text)
 
 
 def _to_float(v) -> float | None:
@@ -147,7 +135,7 @@ def read_offering(client: EdgarClient, e: IndexEntry, use_claude: bool) -> Offer
 
 
 def collect(client: EdgarClient, entries: list[IndexEntry], log) -> tuple[list[dict], list[dict], dict]:
-    use_claude = bool(os.environ.get("ANTHROPIC_API_KEY"))
+    use_claude = llm.available()
     if not use_claude:
         log("ANTHROPIC_API_KEY が未設定のため、目論見書の金額読み取りを省略します")
     offerings: list[dict] = []
