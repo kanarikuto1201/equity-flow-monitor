@@ -264,3 +264,19 @@ def drop_offering_overlap(t, offerings, days: int = 7, price_tol: float = 0.15):
     out = t.drop(index=hit).drop(columns=["_d", "_tk"])
     out.attrs["dropped_offering_overlap"] = int(len(hit))
     return out
+
+
+def clean_form144(f):
+    """Form 144の入力ミスを除く（集計の直前に使う）。
+
+    届出の金額 ÷ 株数 で1株当たりの価格を出し、1万ドル超（株価の高い実在銘柄を除く）や
+    0.05ドル未満（社債など株式以外の届出）になるものは誤記・対象外とみなして除く。
+    """
+    if f.empty:
+        return f
+    f = f.copy()
+    implied = f["market_value_usd"] / f["shares"].where(f["shares"] > 0)
+    issuer = f["issuer"].fillna("").astype(str).str.upper()
+    allow = issuer.str.contains("BERKSHIRE|NVR|MARKEL|AUTOZONE|BOOKING|TEXAS PACIFIC|WHITE MOUNTAINS|FIRST CITIZENS|METTLER")
+    bad = implied.isna() | (implied < 0.05) | ((implied > MAX_PLAUSIBLE_PRICE) & ~allow)
+    return f[~bad]

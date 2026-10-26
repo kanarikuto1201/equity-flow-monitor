@@ -9,7 +9,7 @@ import pandas as pd
 
 from ..core.store import Store, SITE as SITE_ROOT
 from . import buybacks
-from .insiders import clean_trades, drop_offering_overlap
+from .insiders import clean_form144, clean_trades, drop_offering_overlap
 
 STORE = Store("us")
 SITE = SITE_ROOT / "us"
@@ -41,7 +41,7 @@ def daily_components() -> pd.DataFrame:
             "insider_buy": g.get("P", 0.0),
         }))
 
-    f144 = STORE.read_all("form144")
+    f144 = clean_form144(STORE.read_all("form144"))
     if not f144.empty:
         parts.append(f144.assign(day=f144["filed"].astype(str)).groupby("day")["market_value_usd"].sum().rename("form144").to_frame())
 
