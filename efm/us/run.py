@@ -62,13 +62,13 @@ def latest_complete_day(now: datetime | None = None) -> date:
     return day
 
 
-def plan_days(status: dict, start: date | None, end: date | None, max_days: int) -> list[date]:
+def plan_days(status: dict, start: date | None, end: date | None, max_days: int, force: bool = False) -> list[date]:
     last_ok = latest_complete_day()
     end = min(end or last_ok, last_ok)
     if start is None:
         done = [date.fromisoformat(k) for k in status["days"]]
         start = (max(done) + timedelta(days=1)) if done else end - timedelta(days=14)
-    todo = [d for d in business_days(start, end) if d.isoformat() not in status["days"]]
+    todo = [d for d in business_days(start, end) if force or d.isoformat() not in status["days"]]
     return todo[:max_days]
 
 
@@ -107,6 +107,7 @@ def _main(argv=None) -> int:
     p.add_argument("--end", type=date.fromisoformat)
     p.add_argument("--max-days", type=int, default=5)
     p.add_argument("--build-only", action="store_true")
+    p.add_argument("--force", action="store_true", help="処理済みの日も取り直す")
     args = p.parse_args(argv)
 
     status = STORE.load_status()
@@ -114,7 +115,7 @@ def _main(argv=None) -> int:
     if not args.build_only:
         client = EdgarClient()
         log(client.check_access())
-        days = plan_days(status, args.start, args.end, args.max_days)
+        days = plan_days(status, args.start, args.end, args.max_days, args.force)
         log(f"処理する日: {[d.isoformat() for d in days] or 'なし'}")
         for day in days:
             try:

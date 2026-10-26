@@ -16,6 +16,10 @@ on:
         description: "1回で処理する最大日数"
         required: false
         default: "5"
+      force:
+        description: "処理済みの日も取り直す（true / false）"
+        required: false
+        default: "false"
 
 permissions:
   contents: write
@@ -51,6 +55,7 @@ jobs:
           ARGS="--max-days ${{ github.event.inputs.max_days || '5' }}"
           if [ -n "${{ github.event.inputs.start }}" ]; then ARGS="$ARGS --start ${{ github.event.inputs.start }}"; fi
           if [ -n "${{ github.event.inputs.end }}" ]; then ARGS="$ARGS --end ${{ github.event.inputs.end }}"; fi
+          if [ "${{ github.event.inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
           python -m efm.us.run $ARGS
 
       - name: Save data to the repository

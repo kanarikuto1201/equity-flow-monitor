@@ -136,8 +136,8 @@ def parse_form_index(text: str) -> list[IndexEntry]:
         left, cik, date_filed, filename = parts
         form = left[:company_col].strip()
         company = left[company_col:].strip()
-        # 同じ書類が提出者ごとに複数行出るため、書類番号で重複を除く
-        key = (form, filename)
+        # 同じ書類が提出者ごとに別のフォルダ（edgar/data/<CIK>/）で複数行出るため、書類番号で重複を除く
+        key = (form, filename.rsplit("/", 1)[-1])
         if key in seen:
             continue
         seen.add(key)
