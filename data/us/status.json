@@ -11,10 +11,13 @@
    "prospectus_errors": 0,
    "claude_calls": 4,
    "registrations": 7,
-   "seconds": 12,
+   "seconds": 6,
    "delistings": 9,
    "cash_mergers": 1,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 15,
+   "convert_pricings": 1,
+   "convert_errors": 0
   },
   "2026-07-21": {
    "state": "ok",
@@ -27,10 +30,13 @@
    "prospectus_errors": 1,
    "claude_calls": 5,
    "registrations": 3,
-   "seconds": 5,
+   "seconds": 3,
    "delistings": 5,
    "cash_mergers": 1,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 9,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-07-22": {
    "state": "ok",
@@ -43,10 +49,13 @@
    "prospectus_errors": 1,
    "claude_calls": 6,
    "registrations": 5,
-   "seconds": 3,
+   "seconds": 5,
    "delistings": 4,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 18,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-07-23": {
    "state": "ok",
@@ -59,10 +68,13 @@
    "prospectus_errors": 1,
    "claude_calls": 5,
    "registrations": 5,
-   "seconds": 0,
+   "seconds": 4,
    "delistings": 0,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 18,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-07-24": {
    "state": "ok",
@@ -75,10 +87,13 @@
    "prospectus_errors": 0,
    "claude_calls": 10,
    "registrations": 6,
-   "seconds": 2,
+   "seconds": 3,
    "delistings": 6,
    "cash_mergers": 1,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 11,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-07-27": {
    "state": "ok",
@@ -91,10 +106,13 @@
    "prospectus_errors": 2,
    "claude_calls": 6,
    "registrations": 4,
-   "seconds": 2,
+   "seconds": 4,
    "delistings": 4,
    "cash_mergers": 1,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 18,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-07-28": {
    "state": "ok",
@@ -110,7 +128,10 @@
    "seconds": 2,
    "delistings": 8,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 13,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-07-29": {
    "state": "ok",
@@ -123,10 +144,13 @@
    "prospectus_errors": 1,
    "claude_calls": 4,
    "registrations": 10,
-   "seconds": 1,
+   "seconds": 5,
    "delistings": 1,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 25,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-07-30": {
    "state": "ok",
@@ -139,10 +163,13 @@
    "prospectus_errors": 0,
    "claude_calls": 6,
    "registrations": 2,
-   "seconds": 2,
+   "seconds": 4,
    "delistings": 2,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 24,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-07-31": {
    "state": "ok",
@@ -158,7 +185,10 @@
    "seconds": 4,
    "delistings": 6,
    "cash_mergers": 2,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 16,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-08-03": {
    "state": "ok",
@@ -171,10 +201,13 @@
    "prospectus_errors": 2,
    "claude_calls": 4,
    "registrations": 3,
-   "seconds": 0,
+   "seconds": 7,
    "delistings": 2,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 21,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-08-04": {
    "state": "ok",
@@ -187,10 +220,13 @@
    "prospectus_errors": 1,
    "claude_calls": 12,
    "registrations": 1,
-   "seconds": 2,
+   "seconds": 11,
    "delistings": 6,
    "cash_mergers": 1,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 30,
+   "convert_pricings": 1,
+   "convert_errors": 0
   },
   "2026-08-05": {
    "state": "ok",
@@ -203,10 +239,13 @@
    "prospectus_errors": 0,
    "claude_calls": 10,
    "registrations": 4,
-   "seconds": 1,
+   "seconds": 7,
    "delistings": 0,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 33,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-08-06": {
    "state": "ok",
@@ -219,10 +258,13 @@
    "prospectus_errors": 2,
    "claude_calls": 14,
    "registrations": 4,
-   "seconds": 0,
+   "seconds": 6,
    "delistings": 1,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 34,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-08-07": {
    "state": "ok",
@@ -235,10 +277,13 @@
    "prospectus_errors": 0,
    "claude_calls": 17,
    "registrations": 15,
-   "seconds": 1,
+   "seconds": 5,
    "delistings": 4,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 20,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-08-10": {
    "state": "ok",
@@ -251,10 +296,13 @@
    "prospectus_errors": 1,
    "claude_calls": 17,
    "registrations": 7,
-   "seconds": 4,
+   "seconds": 6,
    "delistings": 5,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 30,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-08-11": {
    "state": "ok",
@@ -267,10 +315,13 @@
    "prospectus_errors": 3,
    "claude_calls": 11,
    "registrations": 5,
-   "seconds": 0,
+   "seconds": 4,
    "delistings": 2,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 23,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-08-12": {
    "state": "ok",
@@ -286,7 +337,10 @@
    "seconds": 4,
    "delistings": 3,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 20,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-08-13": {
    "state": "ok",
@@ -299,10 +353,13 @@
    "prospectus_errors": 3,
    "claude_calls": 10,
    "registrations": 1,
-   "seconds": 1,
+   "seconds": 6,
    "delistings": 3,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 32,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-08-14": {
    "state": "ok",
@@ -315,10 +372,13 @@
    "prospectus_errors": 1,
    "claude_calls": 13,
    "registrations": 2,
-   "seconds": 3,
+   "seconds": 6,
    "delistings": 4,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 20,
+   "convert_pricings": 1,
+   "convert_errors": 0
   },
   "2026-08-17": {
    "state": "ok",
@@ -331,10 +391,13 @@
    "prospectus_errors": 4,
    "claude_calls": 3,
    "registrations": 5,
-   "seconds": 5,
+   "seconds": 4,
    "delistings": 8,
    "cash_mergers": 1,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 20,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-08-18": {
    "state": "ok",
@@ -347,10 +410,13 @@
    "prospectus_errors": 0,
    "claude_calls": 5,
    "registrations": 4,
-   "seconds": 0,
+   "seconds": 4,
    "delistings": 0,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 12,
+   "convert_pricings": 1,
+   "convert_errors": 0
   },
   "2026-08-19": {
    "state": "ok",
@@ -363,10 +429,13 @@
    "prospectus_errors": 5,
    "claude_calls": 9,
    "registrations": 2,
-   "seconds": 1,
+   "seconds": 3,
    "delistings": 10,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 13,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-08-20": {
    "state": "ok",
@@ -382,7 +451,10 @@
    "seconds": 3,
    "delistings": 4,
    "cash_mergers": 1,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 16,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-08-21": {
    "state": "ok",
@@ -395,10 +467,13 @@
    "prospectus_errors": 0,
    "claude_calls": 11,
    "registrations": 6,
-   "seconds": 0,
+   "seconds": 4,
    "delistings": 1,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 16,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-08-24": {
    "state": "ok",
@@ -411,10 +486,13 @@
    "prospectus_errors": 0,
    "claude_calls": 11,
    "registrations": 7,
-   "seconds": 1,
+   "seconds": 3,
    "delistings": 2,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 8,
+   "convert_pricings": 1,
+   "convert_errors": 0
   },
   "2026-08-25": {
    "state": "ok",
@@ -427,10 +505,13 @@
    "prospectus_errors": 0,
    "claude_calls": 4,
    "registrations": 6,
-   "seconds": 7,
+   "seconds": 3,
    "delistings": 6,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 11,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-08-26": {
    "state": "ok",
@@ -443,10 +524,13 @@
    "prospectus_errors": 0,
    "claude_calls": 6,
    "registrations": 2,
-   "seconds": 1,
+   "seconds": 2,
    "delistings": 2,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 7,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-08-27": {
    "state": "ok",
@@ -459,10 +543,13 @@
    "prospectus_errors": 3,
    "claude_calls": 3,
    "registrations": 2,
-   "seconds": 8,
+   "seconds": 3,
    "delistings": 7,
    "cash_mergers": 2,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 14,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-08-28": {
    "state": "ok",
@@ -475,10 +562,13 @@
    "prospectus_errors": 1,
    "claude_calls": 8,
    "registrations": 11,
-   "seconds": 1,
+   "seconds": 3,
    "delistings": 3,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 9,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-08-31": {
    "state": "ok",
@@ -491,10 +581,13 @@
    "prospectus_errors": 2,
    "claude_calls": 6,
    "registrations": 8,
-   "seconds": 1,
+   "seconds": 4,
    "delistings": 2,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 15,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-09-01": {
    "state": "ok",
@@ -507,10 +600,13 @@
    "prospectus_errors": 0,
    "claude_calls": 6,
    "registrations": 5,
-   "seconds": 6,
+   "seconds": 2,
    "delistings": 3,
    "cash_mergers": 2,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 9,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-09-02": {
    "state": "ok",
@@ -523,10 +619,13 @@
    "prospectus_errors": 0,
    "claude_calls": 2,
    "registrations": 3,
-   "seconds": 0,
+   "seconds": 3,
    "delistings": 2,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 12,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-09-03": {
    "state": "ok",
@@ -539,10 +638,13 @@
    "prospectus_errors": 1,
    "claude_calls": 4,
    "registrations": 7,
-   "seconds": 3,
+   "seconds": 4,
    "delistings": 4,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 14,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-09-04": {
    "state": "ok",
@@ -555,10 +657,13 @@
    "prospectus_errors": 0,
    "claude_calls": 7,
    "registrations": 4,
-   "seconds": 5,
+   "seconds": 3,
    "delistings": 2,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 10,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-09-07": {
    "state": "holiday"
@@ -574,10 +679,13 @@
    "prospectus_errors": 0,
    "claude_calls": 0,
    "registrations": 6,
-   "seconds": 2,
+   "seconds": 4,
    "delistings": 9,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 16,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-09-09": {
    "state": "ok",
@@ -590,10 +698,13 @@
    "prospectus_errors": 0,
    "claude_calls": 2,
    "registrations": 7,
-   "seconds": 0,
+   "seconds": 3,
    "delistings": 2,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 12,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-09-10": {
    "state": "ok",
@@ -606,10 +717,13 @@
    "prospectus_errors": 1,
    "claude_calls": 7,
    "registrations": 5,
-   "seconds": 0,
+   "seconds": 3,
    "delistings": 0,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 16,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-09-11": {
    "state": "ok",
@@ -625,7 +739,10 @@
    "seconds": 3,
    "delistings": 2,
    "cash_mergers": 1,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 13,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-09-14": {
    "state": "ok",
@@ -638,10 +755,13 @@
    "prospectus_errors": 1,
    "claude_calls": 2,
    "registrations": 3,
-   "seconds": 1,
+   "seconds": 4,
    "delistings": 6,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 20,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-09-15": {
    "state": "ok",
@@ -654,10 +774,13 @@
    "prospectus_errors": 0,
    "claude_calls": 5,
    "registrations": 5,
-   "seconds": 1,
+   "seconds": 4,
    "delistings": 3,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 17,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-09-16": {
    "state": "ok",
@@ -670,10 +793,13 @@
    "prospectus_errors": 1,
    "claude_calls": 5,
    "registrations": 1,
-   "seconds": 1,
+   "seconds": 6,
    "delistings": 3,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 15,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-09-17": {
    "state": "ok",
@@ -686,10 +812,13 @@
    "prospectus_errors": 0,
    "claude_calls": 4,
    "registrations": 3,
-   "seconds": 1,
+   "seconds": 3,
    "delistings": 4,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 16,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-09-18": {
    "state": "ok",
@@ -702,10 +831,13 @@
    "prospectus_errors": 1,
    "claude_calls": 8,
    "registrations": 13,
-   "seconds": 1,
+   "seconds": 6,
    "delistings": 4,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 11,
+   "convert_pricings": 1,
+   "convert_errors": 0
   },
   "2026-09-21": {
    "state": "ok",
@@ -718,10 +850,13 @@
    "prospectus_errors": 2,
    "claude_calls": 6,
    "registrations": 5,
-   "seconds": 0,
+   "seconds": 3,
    "delistings": 2,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 12,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-09-22": {
    "state": "ok",
@@ -734,10 +869,13 @@
    "prospectus_errors": 0,
    "claude_calls": 3,
    "registrations": 3,
-   "seconds": 5,
+   "seconds": 3,
    "delistings": 6,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 15,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-09-23": {
    "state": "ok",
@@ -750,10 +888,13 @@
    "prospectus_errors": 1,
    "claude_calls": 3,
    "registrations": 1,
-   "seconds": 2,
+   "seconds": 3,
    "delistings": 2,
    "cash_mergers": 1,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 13,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-09-24": {
    "state": "ok",
@@ -766,10 +907,13 @@
    "prospectus_errors": 1,
    "claude_calls": 12,
    "registrations": 6,
-   "seconds": 1,
+   "seconds": 3,
    "delistings": 4,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 14,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-09-25": {
    "state": "ok",
@@ -782,10 +926,13 @@
    "prospectus_errors": 0,
    "claude_calls": 6,
    "registrations": 5,
-   "seconds": 5,
+   "seconds": 3,
    "delistings": 5,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 12,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-09-28": {
    "state": "ok",
@@ -798,10 +945,13 @@
    "prospectus_errors": 2,
    "claude_calls": 6,
    "registrations": 5,
-   "seconds": 1,
+   "seconds": 4,
    "delistings": 9,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 18,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-09-29": {
    "state": "ok",
@@ -814,10 +964,13 @@
    "prospectus_errors": 0,
    "claude_calls": 6,
    "registrations": 4,
-   "seconds": 2,
+   "seconds": 3,
    "delistings": 1,
    "cash_mergers": 1,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 14,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-09-30": {
    "state": "ok",
@@ -830,10 +983,13 @@
    "prospectus_errors": 0,
    "claude_calls": 10,
    "registrations": 6,
-   "seconds": 3,
+   "seconds": 5,
    "delistings": 7,
    "cash_mergers": 1,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 24,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-10-01": {
    "state": "ok",
@@ -846,10 +1002,13 @@
    "prospectus_errors": 2,
    "claude_calls": 8,
    "registrations": 6,
-   "seconds": 7,
+   "seconds": 4,
    "delistings": 10,
    "cash_mergers": 1,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 15,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-10-02": {
    "state": "ok",
@@ -862,10 +1021,13 @@
    "prospectus_errors": 1,
    "claude_calls": 3,
    "registrations": 7,
-   "seconds": 4,
+   "seconds": 3,
    "delistings": 4,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 16,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-10-05": {
    "state": "ok",
@@ -878,10 +1040,13 @@
    "prospectus_errors": 1,
    "claude_calls": 4,
    "registrations": 5,
-   "seconds": 6,
+   "seconds": 4,
    "delistings": 9,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 15,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-10-06": {
    "state": "ok",
@@ -894,10 +1059,13 @@
    "prospectus_errors": 1,
    "claude_calls": 4,
    "registrations": 6,
-   "seconds": 7,
+   "seconds": 4,
    "delistings": 8,
    "cash_mergers": 3,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 14,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-10-07": {
    "state": "ok",
@@ -910,10 +1078,13 @@
    "prospectus_errors": 2,
    "claude_calls": 2,
    "registrations": 3,
-   "seconds": 1,
+   "seconds": 3,
    "delistings": 5,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 10,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-10-08": {
    "state": "ok",
@@ -926,10 +1097,13 @@
    "prospectus_errors": 2,
    "claude_calls": 1,
    "registrations": 1,
-   "seconds": 1,
+   "seconds": 3,
    "delistings": 3,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 16,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-10-09": {
    "state": "ok",
@@ -942,10 +1116,13 @@
    "prospectus_errors": 6,
    "claude_calls": 12,
    "registrations": 9,
-   "seconds": 4,
+   "seconds": 3,
    "delistings": 7,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 12,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-10-12": {
    "state": "holiday"
@@ -961,10 +1138,13 @@
    "prospectus_errors": 2,
    "claude_calls": 4,
    "registrations": 4,
-   "seconds": 2,
+   "seconds": 5,
    "delistings": 9,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 23,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-10-14": {
    "state": "ok",
@@ -977,10 +1157,13 @@
    "prospectus_errors": 0,
    "claude_calls": 11,
    "registrations": 2,
-   "seconds": 1,
+   "seconds": 3,
    "delistings": 3,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 12,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-10-15": {
    "state": "ok",
@@ -996,7 +1179,10 @@
    "seconds": 3,
    "delistings": 4,
    "cash_mergers": 1,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 14,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-10-16": {
    "state": "ok",
@@ -1009,10 +1195,13 @@
    "prospectus_errors": 1,
    "claude_calls": 4,
    "registrations": 6,
-   "seconds": 3,
+   "seconds": 2,
    "delistings": 5,
    "cash_mergers": 1,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 10,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-10-19": {
    "state": "ok",
@@ -1028,7 +1217,10 @@
    "seconds": 2,
    "delistings": 5,
    "cash_mergers": 1,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 9,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-10-20": {
    "state": "ok",
@@ -1044,7 +1236,10 @@
    "seconds": 2,
    "delistings": 7,
    "cash_mergers": 1,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 7,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-10-21": {
    "state": "ok",
@@ -1057,10 +1252,13 @@
    "prospectus_errors": 0,
    "claude_calls": 6,
    "registrations": 4,
-   "seconds": 0,
+   "seconds": 3,
    "delistings": 1,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 14,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-10-22": {
    "state": "ok",
@@ -1073,10 +1271,13 @@
    "prospectus_errors": 0,
    "claude_calls": 5,
    "registrations": 3,
-   "seconds": 1,
+   "seconds": 2,
    "delistings": 3,
    "cash_mergers": 0,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 10,
+   "convert_pricings": 0,
+   "convert_errors": 0
   },
   "2026-10-23": {
    "state": "ok",
@@ -1089,12 +1290,15 @@
    "prospectus_errors": 0,
    "claude_calls": 8,
    "registrations": 3,
-   "seconds": 5,
+   "seconds": 2,
    "delistings": 7,
    "cash_mergers": 1,
-   "merger_errors": 0
+   "merger_errors": 0,
+   "convert_docs": 10,
+   "convert_pricings": 0,
+   "convert_errors": 0
   }
  },
- "last_run": "2026-10-26T06:58:24-04:00",
- "last_run_requests": 1
+ "last_run": "2026-10-26T07:55:37-04:00",
+ "last_run_requests": 16491
 }
