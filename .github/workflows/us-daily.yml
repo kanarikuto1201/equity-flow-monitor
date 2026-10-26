@@ -23,6 +23,10 @@ on:
       collectors:
         description: "取得する項目（空欄ならすべて。例：mergers）"
         required: false
+      retry_errors:
+        description: "読み取りに失敗した目論見書だけを読み直す（true / false）"
+        required: false
+        default: "false"
 
 permissions:
   contents: write
@@ -59,6 +63,7 @@ jobs:
           if [ -n "${{ github.event.inputs.start }}" ]; then ARGS="$ARGS --start ${{ github.event.inputs.start }}"; fi
           if [ -n "${{ github.event.inputs.end }}" ]; then ARGS="$ARGS --end ${{ github.event.inputs.end }}"; fi
           if [ "${{ github.event.inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
+          if [ "${{ github.event.inputs.retry_errors }}" = "true" ]; then ARGS="$ARGS --retry-errors --skip-buybacks"; fi
           if [ -n "${{ github.event.inputs.collectors }}" ]; then ARGS="$ARGS --collectors ${{ github.event.inputs.collectors }}"; fi
           python -m efm.us.run $ARGS
 

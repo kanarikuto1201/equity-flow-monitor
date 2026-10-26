@@ -103,6 +103,36 @@ def process_day(client: EdgarClient, day: date, collectors=COLLECTORS) -> tuple[
     return stats, reporters
 
 
+def retry_offering_errors(client: EdgarClient) -> None:
+    """保存済みの目論見書のうち、読み取りに失敗したものだけを読み直して上書きする。"""
+    import pandas as pd
+    from dataclasses import asdict
+    from .edgar import IndexEntry
+
+    fixed = failed = 0
+    for path in sorted((STORE.raw / "offerings").glob("*/*.csv.gz")):
+        try:
+            df = pd.read_csv(path, compression="gzip")
+        except pd.errors.EmptyDataError:
+            continue
+        if df.empty or not df["status"].astype(str).str.startswith("error").any():
+            continue
+        rows = df.to_dict(orient="records")
+        for i, r in enumerate(rows):
+            if not str(r["status"]).startswith("error"):
+                continue
+            filename = r["url"].split("/Archives/", 1)[-1]
+            e = IndexEntry(r["form"], r["company"], str(r["cik"]), str(r["filed"]), filename)
+            try:
+                rows[i] = asdict(offerings.read_offering(client, e, True))
+                fixed += 1
+            except Exception as exc:
+                failed += 1
+                log(f"読み直しに失敗: {r['url']} ({type(exc).__name__}: {exc})")
+        pd.DataFrame(rows).to_csv(path, index=False, compression="gzip")
+    log(f"目論見書の読み直し：成功 {fixed} 件、失敗 {failed} 件")
+
+
 def main(argv=None) -> int:
     try:
         return _main(argv)
@@ -123,6 +153,7 @@ def _main(argv=None) -> int:
     p.add_argument("--force", action="store_true", help="処理済みの日も取り直す")
     p.add_argument("--collectors", default=",".join(COLLECTORS), help="取得する項目（カンマ区切り）")
     p.add_argument("--skip-buybacks", action="store_true", help="自社株買いデータの更新を省く")
+    p.add_argument("--retry-errors", action="store_true", help="読み取りに失敗した目論見書だけを読み直す")
     args = p.parse_args(argv)
 
     status = STORE.load_status()
@@ -132,6 +163,9 @@ def _main(argv=None) -> int:
         log(client.check_access())
         days = plan_days(status, args.start, args.end, args.max_days, args.force)
         log(f"処理する日: {[d.isoformat() for d in days] or 'なし'}")
+        if args.retry_errors:
+            retry_offering_errors(client)
+            days = []
         collectors = tuple(c.strip() for c in args.collectors.split(",") if c.strip())
         reporters: set[str] = set()
         for day in days:
