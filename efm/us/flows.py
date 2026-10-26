@@ -211,7 +211,7 @@ def daily_estimate(quarters: pd.DataFrame, until: date, blackout: bool = False, 
     columns: reported（報告済み四半期の配分）, estimated（未報告期間の推計）。index は YYYYMMDD
     """
     if quarters.empty:
-        return pd.DataFrame(columns=["reported", "estimated"])
+        return pd.DataFrame({"reported": pd.Series(dtype=float), "estimated": pd.Series(dtype=float)})
     q = quarters.copy()
     q["start_d"] = pd.to_datetime(q["start"])
     q["end_d"] = pd.to_datetime(q["end"])

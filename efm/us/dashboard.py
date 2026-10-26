@@ -95,6 +95,7 @@ def daily_components() -> pd.DataFrame:
     for col in cols:
         if col not in df:
             df[col] = 0.0
+    df = df.astype(float)  # データのない項目が混ざっても数値として集計できるように
     for f in flows.FLOWS:
         df[f] = df[f"{f}_reported"] + df[f"{f}_estimated"]
     # 転換で出る株のうち、発行時にヘッジ売りされていない分だけを浮動株の供給とする

@@ -90,3 +90,17 @@ def test_convert_pricing_hint():
     from efm.us.converts import _PRICING_HINT
     assert _PRICING_HINT.search("Acme Corp Announces Pricing of $750 Million Convertible Senior Notes Offering")
     assert not _PRICING_HINT.search("Acme Corp reports third quarter results; revenue grew 12%")
+
+
+def test_dashboard_builds_with_partial_data(tmp_path, monkeypatch):
+    """XBRLデータの一部がまだない状態でも、ページを作れること。"""
+    from efm.us import dashboard
+    from efm.core.store import Store
+    s = Store("test"); s.base = tmp_path; s.raw = tmp_path / "raw"; s.status_path = tmp_path / "status.json"
+    s.write_day("insider_trades", date(2026, 10, 23), [{"filed": "20261023", "ticker": "A", "issuer": "A", "issuer_cik": "1",
+        "trade_date": "2026-10-22", "code": "S", "shares": 10, "price": 5, "value_usd": 50}])
+    s.save_status({"days": {"2026-10-23": {"state": "ok"}}})
+    monkeypatch.setattr(dashboard, "STORE", s)
+    monkeypatch.setattr(dashboard, "SITE", tmp_path / "site")
+    dashboard.build()
+    assert (tmp_path / "site" / "index.html").exists()
