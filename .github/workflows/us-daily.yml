@@ -72,8 +72,13 @@ jobs:
             echo "変更なし"
           else
             git commit -m "data(us): $(date -u +%Y-%m-%d)"
-            git pull --rebase
-            git push
+            for i in 1 2 3; do
+              if git pull --rebase -X theirs && git push; then exit 0; fi
+              git rebase --abort 2>/dev/null || true
+              sleep 10
+            done
+            echo "::error::データをリポジトリに保存できませんでした（push失敗）"
+            exit 1
           fi
 
       - uses: actions/configure-pages@v5

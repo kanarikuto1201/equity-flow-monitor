@@ -55,3 +55,22 @@ FILED BY:
 		CENTRAL INDEX KEY:			0001120193
 """
     assert subject_company(header) == ("1234567", "TARGET THERAPEUTICS INC")
+
+
+def test_process_day_runs_with_fake_client(tmp_path, monkeypatch):
+    """毎日の処理の組み立て（引数・戻り値）が壊れていないかを、通信なしで確かめる。"""
+    from efm.us import run
+    from efm.us.edgar import IndexEntry
+    from efm.core.store import Store
+
+    monkeypatch.setattr(run, "STORE", Store("test"))
+    run.STORE.base = tmp_path
+    run.STORE.raw = tmp_path / "raw"
+
+    class Fake:
+        def daily_index(self, day):
+            return [IndexEntry("10-Q", "A CO", "0000123", "20261023", "edgar/data/123/0000000000-26-000001.txt")]
+
+    stats, reporters = run.process_day(Fake(), date(2026, 10, 23))
+    assert reporters == {"123"} and stats["filings"] == 1
+    assert run.main(["--build-only"]) in (0, 1)

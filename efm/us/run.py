@@ -72,20 +72,33 @@ def plan_days(status: dict, start: date | None, end: date | None, max_days: int,
     return todo[:max_days]
 
 
-def process_day(client: EdgarClient, day: date) -> dict:
+COLLECTORS = ("insiders", "offerings", "mergers")
+
+
+def process_day(client: EdgarClient, day: date, collectors=COLLECTORS) -> tuple[dict, set[str]]:
+    """1日分を処理する。戻り値：処理状況と、その日に10-Q / 10-K を出した会社のCIK。"""
     t0 = time.monotonic()
     entries = client.daily_index(day)
     log(f"{day}: 提出書類 {len(entries):,} 件")
+    stats: dict = {"filings": len(entries)}
 
-    trades, notices, s1 = insiders.collect(client, entries, log)
-    offs, pipeline, s2 = offerings.collect(client, entries, log)
+    if "insiders" in collectors:
+        trades, notices, s = insiders.collect(client, entries, log)
+        STORE.write_day("insider_trades", day, trades)
+        STORE.write_day("form144", day, notices)
+        stats.update(s)
+    if "offerings" in collectors:
+        offs, pipeline, s = offerings.collect(client, entries, log)
+        STORE.write_day("offerings", day, offs)
+        STORE.write_day("registrations", day, pipeline)
+        stats.update(s)
+    if "mergers" in collectors:
+        deals, s = mergers.collect(client, entries, day, log)
+        STORE.write_day("mergers", day, deals)
+        stats.update(s)
 
-    STORE.write_day("insider_trades", day, trades)
-    STORE.write_day("form144", day, notices)
-    STORE.write_day("offerings", day, offs)
-    STORE.write_day("registrations", day, pipeline)
-
-    stats = {"filings": len(entries), **s1, **s2, "seconds": round(time.monotonic() - t0)}
+    reporters = {str(int(e.cik)) for e in entries if e.form in ("10-Q", "10-K", "10-Q/A", "10-K/A")}
+    stats["seconds"] = round(time.monotonic() - t0)
     log(f"{day}: 完了 {stats}")
     return stats, reporters
 

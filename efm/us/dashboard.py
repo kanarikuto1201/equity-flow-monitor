@@ -9,6 +9,7 @@ import pandas as pd
 
 from ..core.store import Store, SITE as SITE_ROOT
 from . import buybacks
+from .insiders import clean_trades, drop_offering_overlap
 
 STORE = Store("us")
 SITE = SITE_ROOT / "us"
@@ -31,7 +32,7 @@ def daily_components() -> pd.DataFrame:
     """日ごとの構成要素（ドル）。今は実装済みの項目だけ。"""
     parts = []
 
-    trades = STORE.read_all("insider_trades")
+    trades = drop_offering_overlap(clean_trades(STORE.read_all("insider_trades")), STORE.read_all("offerings"))
     if not trades.empty:
         t = trades.assign(day=trades["filed"].astype(str))
         g = t.pivot_table(index="day", columns="code", values="value_usd", aggfunc="sum", fill_value=0)
@@ -131,7 +132,7 @@ def build() -> None:
             "weeks_of_data": int(len(wk)),
         }
 
-    trades = STORE.read_all("insider_trades")
+    trades = drop_offering_overlap(clean_trades(STORE.read_all("insider_trades")), STORE.read_all("offerings"))
     if not trades.empty and payload.get("weekly"):
         cutoff = (pd.Timestamp(payload["weekly"]["weeks"][-1]) - pd.Timedelta(days=27)).strftime("%Y%m%d")
         recent = trades[(trades["code"] == "S") & (trades["filed"].astype(str) >= cutoff)]

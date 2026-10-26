@@ -204,3 +204,63 @@ def collect(client: EdgarClient, entries: list[IndexEntry], log) -> tuple[list[d
                 stats["form144_errors"] += 1
                 log(f"Form 144の読み取りに失敗: {e.url} ({exc})")
     return trades, notices, stats
+
+
+# 1株の価格が非常に高い実在銘柄（これらは価格チェックの対象外）
+HIGH_PRICE_TICKERS = {"BRK.A", "BRK-A", "BRKA", "NVR", "SEB", "MKL", "AZO", "BKNG", "CMG", "FCNCA", "WTM", "TPL", "MTD"}
+MAX_PLAUSIBLE_PRICE = 10_000
+
+
+def clean_trades(t):
+    """Form 4の入力ミスを補正する（集計の直前に使う。保存データは書き換えない）。
+
+    - 提出者が「株価」の欄に合計金額を書くことがあるため、同じ銘柄の他の取引の中央値から
+      5倍以上ずれている価格は、中央値に置き換える
+    - 価格が1万ドルを超える取引は、株価の高い実在銘柄を除き誤記とみなして除く
+      （同じ人が毎回合計金額を書いている場合、中央値そのものが誤っているため）
+    - 共同提出者が同じ取引を別々に届け出た重複（銘柄・日付・株数・価格・種類が同じ）を除く
+    """
+    import pandas as pd
+
+    if t.empty:
+        return t
+    t = t.copy()
+    t["ticker"] = t["ticker"].fillna("").astype(str)
+    med = t.groupby("ticker")["price"].transform("median")
+    cnt = t.groupby("ticker")["price"].transform("count")
+    ratio = t["price"] / med
+    off = (cnt >= 3) & ((ratio > 5) | (ratio < 0.2))
+    t.loc[off, "price"] = med[off]
+    t["price_fixed"] = off
+    lone_high = (t["price"] > MAX_PLAUSIBLE_PRICE) & (~t["ticker"].isin(HIGH_PRICE_TICKERS))
+    t = t[~lone_high]
+    t["value_usd"] = t["shares"] * t["price"]
+    t = t.drop_duplicates(subset=["ticker", "trade_date", "shares", "price", "code", "issuer_cik"])
+    return t
+
+
+def drop_offering_overlap(t, offerings, days: int = 7, price_tol: float = 0.15):
+    """引受付きの売出しで売った内部者のForm 4を除く（設計書の計上ルール：同じ株を2回数えない）。
+
+    売出し（IPO・公募）と同じ銘柄で、提出日が前後7日以内、価格が売出価格の±15%以内の
+    市場売却は、売出しの一部とみなす。売出しの金額は目論見書側で数えている。
+    """
+    import pandas as pd
+
+    if t.empty or offerings is None or offerings.empty:
+        return t
+    o = offerings[(offerings["status"] == "ok") & offerings["offering_type"].isin(["ipo", "follow_on"])
+                  & offerings["ticker"].notna() & offerings["price_per_share_usd"].notna()].copy()
+    if o.empty:
+        return t
+    o["ticker"] = o["ticker"].astype(str).str.upper().str.split(r"[ ,/]").str[0]
+    o["d"] = pd.to_datetime(o["filed"].astype(str), format="%Y%m%d", errors="coerce")
+    t = t.copy()
+    t["_d"] = pd.to_datetime(t["filed"].astype(str), format="%Y%m%d", errors="coerce")
+    t["_tk"] = t["ticker"].astype(str).str.upper().str.split(r"[ ,/]").str[0]
+    m = t[t["code"] == "S"].reset_index().merge(o[["ticker", "d", "price_per_share_usd"]], left_on="_tk", right_on="ticker", suffixes=("", "_o"))
+    hit = m[((m["_d"] - m["d"]).abs() <= pd.Timedelta(days=days))
+            & ((m["price"] / m["price_per_share_usd"] - 1).abs() <= price_tol)]["index"].unique()
+    out = t.drop(index=hit).drop(columns=["_d", "_tk"])
+    out.attrs["dropped_offering_overlap"] = int(len(hit))
+    return out
