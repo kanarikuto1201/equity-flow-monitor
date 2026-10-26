@@ -6,120 +6,151 @@
 <title>米国株 需給モニター</title>
 <style>
   :root {
-    --bg: #f7f7f4; --panel: #ffffff; --ink: #1d1d1b; --quiet: #6b6b66; --rule: #e4e3dd;
-    --supply: #c2410c; --supply2: #ea8a5a; --supply3: #f4c3a6; --demand: #15803d; --demand2: #86c79b; --demand3: #0f766e; --demand4: #a3d9a5; --supply4: #9a3412; --supply5: #d97757; --supply6: #7c2d12; --line: #1d4ed8; --warn: #b45309;
+    --bg: #ffffff; --paper: #ffffff; --ink: #0f1b2d; --quiet: #5b6676; --rule: #d9dee5; --hair: #eef1f5;
+    --navy: #13294b; --accent: #2f6db5;
+    /* 需要＝寒色、供給＝暖色。系列が多いので明度で段階をつける */
+    --d1: #13294b; --d2: #2f6db5; --d3: #7fa6d6; --d4: #b9cde8;
+    --s1: #8c2d19; --s2: #c4512c; --s3: #e08a5e; --s4: #efb894; --s5: #a8a29e; --s6: #6b5a50; --s7: #d6c7b8;
+    --line: #0f1b2d; --pos: #2f6db5; --neg: #c4512c;
   }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #151514; --panel: #1f1f1d; --ink: #ededea; --quiet: #a3a39c; --rule: #33332f;
-      --supply: #fb8b5a; --supply2: #c46a40; --supply3: #7c4a33; --demand: #4ade80; --demand2: #2f7a4a; --demand3: #2dd4bf; --demand4: #1f5a37; --supply4: #fdba8c; --supply5: #a35233; --supply6: #fed7aa; --line: #7aa2ff; --warn: #fbbf24; }
+    :root:not([data-theme="light"]) {
+      --bg: #0d1420; --paper: #121b2a; --ink: #e7ecf3; --quiet: #9aa6b6; --rule: #2a3648; --hair: #1c2738;
+      --navy: #c9d7ec; --accent: #7fa6d6;
+      --d1: #c9d7ec; --d2: #7fa6d6; --d3: #4a78b0; --d4: #2c4d78;
+      --s1: #f0a07c; --s2: #d9734d; --s3: #b2573a; --s4: #7d3f2c; --s5: #8c8682; --s6: #b8a596; --s7: #5a4a40;
+      --line: #e7ecf3; --pos: #7fa6d6; --neg: #f0a07c;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0d1420; --paper: #121b2a; --ink: #e7ecf3; --quiet: #9aa6b6; --rule: #2a3648; --hair: #1c2738;
+    --navy: #c9d7ec; --accent: #7fa6d6;
+    --d1: #c9d7ec; --d2: #7fa6d6; --d3: #4a78b0; --d4: #2c4d78;
+    --s1: #f0a07c; --s2: #d9734d; --s3: #b2573a; --s4: #7d3f2c; --s5: #8c8682; --s6: #b8a596; --s7: #5a4a40;
+    --line: #e7ecf3; --pos: #7fa6d6; --neg: #f0a07c;
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--ink);
-    font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", "Segoe UI", sans-serif; }
-  main { max-width: 1080px; margin: 0 auto; padding: 24px 16px 64px; }
-  header h1 { font-size: 22px; margin: 0 0 4px; }
-  header p { margin: 0; color: var(--quiet); font-size: 13px; }
-  header p.back { margin-bottom: 8px; }
-  section { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 18px 20px; margin-top: 16px; }
-  h2 { font-size: 16px; margin: 0 0 4px; }
-  .lead { color: var(--quiet); font-size: 13px; margin: 0 0 12px; }
-  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
-  .kpi { border: 1px solid var(--rule); border-radius: 8px; padding: 12px 14px; }
-  .kpi .label { color: var(--quiet); font-size: 12px; }
-  .kpi .value { font-size: 24px; font-weight: 650; font-variant-numeric: tabular-nums; }
-  .kpi .unit { font-size: 12px; color: var(--quiet); margin-left: 2px; }
-  .neg { color: var(--supply); } .pos { color: var(--demand); }
-  .chart { position: relative; height: 320px; }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
-  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--rule); vertical-align: top; }
-  th { color: var(--quiet); font-weight: 600; font-size: 12px; }
-  td.num, th.num { text-align: right; }
-  .scroll { overflow: auto; max-height: 440px; }
-  .scroll thead th { position: sticky; top: 0; background: var(--panel); }
-  a { color: var(--line); }
-  .note { border-left: 3px solid var(--warn); padding: 8px 12px; font-size: 13px; color: var(--quiet); margin-top: 12px; }
-  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } .chart { height: 260px; } }
-  ul.todo { margin: 0; padding-left: 18px; color: var(--quiet); font-size: 13px; }
-  .empty { color: var(--quiet); font-size: 13px; }
+    font: 14px/1.55 "Hiragino Sans", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  .serif { font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", Georgia, serif; }
+  main { max-width: 1180px; margin: 0 auto; padding: 0 16px 56px; }
+
+  .masthead { border-bottom: 3px solid var(--navy); padding: 22px 0 12px; display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+  .masthead .kicker { font-size: 11px; letter-spacing: .18em; color: var(--quiet); text-transform: uppercase; }
+  .masthead h1 { margin: 4px 0 0; font-size: 28px; font-weight: 600; color: var(--navy); }
+  .masthead .meta { text-align: right; font-size: 12px; color: var(--quiet); }
+  .masthead .meta a { color: var(--accent); text-decoration: none; }
+  .subbar { display: flex; gap: 24px; flex-wrap: wrap; padding: 8px 0; border-bottom: 1px solid var(--rule); font-size: 12px; color: var(--quiet); }
+  .subbar b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; }
+  .exhibit { padding: 20px 0 16px; border-bottom: 1px solid var(--rule); min-width: 0; }
+  .exhibit.wide { grid-column: 1 / -1; }
+  .exhibit .no { font-size: 11px; letter-spacing: .14em; color: var(--accent); font-weight: 600; text-transform: uppercase; }
+  .exhibit h2 { margin: 2px 0 2px; font-size: 17px; font-weight: 600; color: var(--navy); line-height: 1.4; }
+  .exhibit .unit { font-size: 12px; color: var(--quiet); margin-bottom: 10px; }
+  .chart { position: relative; height: 300px; }
+  .exhibit.wide .chart { height: 360px; }
+  .chart.tall { height: 360px; }
+  .source { margin-top: 8px; padding-top: 6px; border-top: 1px solid var(--hair); font-size: 11px; color: var(--quiet); }
+  .empty { display: grid; place-items: center; height: 100%; color: var(--quiet); font-size: 13px; border: 1px dashed var(--rule); }
+  footer { margin-top: 18px; font-size: 11px; color: var(--quiet); line-height: 1.7; }
+  @media (max-width: 860px) {
+    .grid { grid-template-columns: 1fr; }
+    .masthead .meta { text-align: left; }
+    .chart, .exhibit.wide .chart, .chart.tall { height: 280px; }
+  }
 </style>
 </head>
 <body>
 <main>
-  <header>
-    <p class="back"><a href="../">← 市場の一覧</a></p>
-    <h1>米国株 需給モニター</h1>
-    <p id="asof"></p>
+  <header class="masthead">
+    <div>
+      <div class="kicker">US Equity Flows</div>
+      <h1 class="serif">米国株 需給モニター</h1>
+    </div>
+    <div class="meta">
+      <div id="asof"></div>
+      <div><a href="../">市場の一覧へ</a></div>
+    </div>
   </header>
+  <div class="subbar" id="subbar"></div>
 
-  <section id="summary">
-    <h2>今週のサマリー</h2>
-    <p class="empty">週次サマリー（Claudeによる解説）は今後のステップで追加します。</p>
-  </section>
-
-  <section>
-    <h2>主要数値</h2>
-    <p class="lead">単位：10億ドル。供給側のうち、関係者以外のロックアップ解除後の売りと、買収対価株の売却はまだ入っていません。株式報酬・新株発行・自社株買いは四半期の実績を日割りした値で、未報告の期間は推計です。</p>
-    <div class="kpis" id="kpis"></div>
-  </section>
-
-  <section>
-    <h2>浮動株ベースの需給（週次、部分集計）</h2>
-    <p class="lead">下向きの棒が市場に出た株（供給）、上向きが吸収された株（需要）。線は13週の移動合計。自社株買いは、報告済みの四半期は実績を配分した値、未報告の期間は直近4四半期の平均からの推計です。<span id="bbnote"></span></p>
-    <div class="chart"><canvas id="flow"></canvas></div>
-  </section>
-
-  <div class="grid2">
-    <section>
-      <h2>内部者の売り：予告と実績</h2>
-      <p class="lead">Form 144（売却予定の届出）とForm 4（実際の市場売却）、週次。</p>
-      <div class="chart"><canvas id="insider"></canvas></div>
+  <div class="grid">
+    <section class="exhibit wide">
+      <div class="no">図表 1</div>
+      <h2 class="serif" id="t1">浮動株ベースの需給</h2>
+      <div class="unit">週次、10億ドル。上が需要（株が市場から吸収）、下が供給（株が市場に出る）。線は13週移動合計（右軸）</div>
+      <div class="chart"><canvas id="c1"></canvas></div>
+      <div class="source">出所：SEC EDGAR（Form 4・424B・8-K・Form 25・XBRL）。自社株買い・株式報酬・新株発行は四半期の実績を日割りし、未報告の期間は直近4四半期の平均で推計</div>
     </section>
-    <section>
-      <h2>内部者売却の多い銘柄（直近4週）</h2>
-      <p class="lead">Form 4の市場売却額（100万ドル）。</p>
-      <div class="scroll" id="sellers"></div>
+
+    <section class="exhibit">
+      <div class="no">図表 2</div>
+      <h2 class="serif" id="t2">需要と供給（13週移動合計）</h2>
+      <div class="unit">10億ドル</div>
+      <div class="chart"><canvas id="c2"></canvas></div>
+      <div class="source">出所：SEC EDGAR、筆者推計</div>
+    </section>
+
+    <section class="exhibit">
+      <div class="no">図表 3</div>
+      <h2 class="serif" id="t3">内部者の売り：予告と実績</h2>
+      <div class="unit">週次、10億ドル。Form 144は売却予定の届出、Form 4は実際の市場売却</div>
+      <div class="chart"><canvas id="c3"></canvas></div>
+      <div class="source">出所：SEC EDGAR（Form 144、Form 4）。入力ミスと引受付き売出しとの重複を除く</div>
+    </section>
+
+    <section class="exhibit">
+      <div class="no">図表 4</div>
+      <h2 class="serif" id="t4">需要の内訳</h2>
+      <div class="unit">週次、10億ドル</div>
+      <div class="chart"><canvas id="c4"></canvas></div>
+      <div class="source">出所：SEC EDGAR（XBRL・Form 25・8-K・Form 4）</div>
+    </section>
+
+    <section class="exhibit">
+      <div class="no">図表 5</div>
+      <h2 class="serif" id="t5">供給の内訳</h2>
+      <div class="unit">週次、10億ドル</div>
+      <div class="chart"><canvas id="c5"></canvas></div>
+      <div class="source">出所：SEC EDGAR（424B・XBRL・8-K・Form 4）。転換社債は発行額の45%をヘッジ売りとして計上</div>
+    </section>
+
+    <section class="exhibit">
+      <div class="no">図表 6</div>
+      <h2 class="serif" id="t6">内部者の売却額が大きい銘柄（直近4週）</h2>
+      <div class="unit">100万ドル</div>
+      <div class="chart tall"><canvas id="c6"></canvas></div>
+      <div class="source">出所：SEC EDGAR（Form 4、取引コードS）</div>
+    </section>
+
+    <section class="exhibit">
+      <div class="no">図表 7</div>
+      <h2 class="serif" id="t7">直近のIPO・公募増資</h2>
+      <div class="unit">調達額、100万ドル（新株と既存株主の売出しの合計）</div>
+      <div class="chart tall"><canvas id="c7"></canvas></div>
+      <div class="source">出所：SEC EDGAR（424B4・424B5・424B7）。ATM枠とSPACは除く</div>
+    </section>
+
+    <section class="exhibit">
+      <div class="no">図表 8</div>
+      <h2 class="serif" id="t8">直近の現金M&amp;A</h2>
+      <div class="unit">現金対価の総額、100万ドル</div>
+      <div class="chart tall"><canvas id="c8"></canvas></div>
+      <div class="source">出所：SEC EDGAR（Form 25、完了の8-K、XBRLの発行済株数）。株式対価の部分は除く</div>
+    </section>
+
+    <section class="exhibit">
+      <div class="no">図表 9</div>
+      <h2 class="serif" id="t9">直近の転換社債の発行</h2>
+      <div class="unit">発行額、100万ドル（濃い部分がヘッジ売りの推計）</div>
+      <div class="chart tall"><canvas id="c9"></canvas></div>
+      <div class="source">出所：SEC EDGAR（価格決定の8-K）</div>
     </section>
   </div>
 
-  <section>
-    <h2>直近のIPO・増資</h2>
-    <p class="lead">確定目論見書（424B4・424B5・424B7）からClaudeが読み取った内容。ATMは枠の設定なので需給には入れていません。</p>
-    <div class="scroll" id="offerings"></div>
-  </section>
-
-  <section>
-    <h2>直近の現金M&amp;A（上場企業の買収完了）</h2>
-    <p class="lead">上場廃止届と完了の8-Kから。現金対価 × 発行済株数を需要として数えています。株式対価の部分は数えません。</p>
-    <div class="scroll" id="mergers"></div>
-  </section>
-
-  <section>
-    <h2>直近の転換社債（価格決定の発表）</h2>
-    <p class="lead">8-Kの発表からClaudeが読み取った内容。発行額の45%を、社債を買った投資家のヘッジ売り（空売り）として発行日の供給に数えています（初期値）。</p>
-    <div class="scroll" id="converts"></div>
-  </section>
-
-  <section>
-    <h2>上場予定（S-1・F-1の新規提出）</h2>
-    <div class="scroll" id="registrations"></div>
-  </section>
-
-  <section>
-    <h2>未実装の項目</h2>
-    <ul class="todo">
-      <li>需要：自社株買いの新規枠（8-K）の一覧</li>
-      <li>供給：関係者以外のロックアップ解除後の推計売却、株式対価の買収で渡った株の売却</li>
-      <li>供給の壁（今後12か月のロックアップ解除予定表）、指数入替（別枠）</li>
-      <li>発行体ベースの系列、確報（Z.1・10-Q）との突合、警戒シグナル、週次サマリー</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>データの状態</h2>
-    <div id="status-lead"></div>
-    <div class="scroll" id="status"></div>
-  </section>
+  <footer id="footer"></footer>
 </main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -127,127 +158,154 @@
 const DATA = /*__DATA__*/null;
 const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const fmt = (v, d = 1) => v == null || isNaN(v) ? "—" : Number(v).toLocaleString("ja-JP", { minimumFractionDigits: d, maximumFractionDigits: d });
-const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const day = s => s ? String(s).replace(/^(\d{4})(\d{2})(\d{2})$/, "$1-$2-$3") : "";
-const typeJa = { ipo: "IPO", spac_ipo: "SPAC上場", follow_on: "公募・売出し", registered_direct: "直接募集", rights: "株主割当", atm: "ATM枠" };
+const sum = a => (a || []).reduce((x, y) => x + (y || 0), 0);
+const short = s => { s = String(s || ""); return s.length > 26 ? s.slice(0, 25) + "…" : s; };
+const md = s => { const m = String(s || "").match(/^(\d{4})-?(\d{2})-?(\d{2})$/); return m ? `${+m[2]}/${+m[3]}` : s; };
 
-function table(el, cols, rows) {
-  const box = document.getElementById(el);
-  if (!rows || !rows.length) { box.innerHTML = '<p class="empty">まだデータがありません。</p>'; return; }
-  const head = cols.map(c => `<th class="${c.num ? "num" : ""}">${c.label}</th>`).join("");
-  const body = rows.map(r => `<tr>${cols.map(c => `<td class="${c.num ? "num" : ""}">${c.render ? c.render(r) : esc(r[c.key])}</td>`).join("")}</tr>`).join("");
-  box.innerHTML = `<table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
+function empty(id, msg = "まだデータがありません") {
+  const c = document.getElementById(id); if (!c) return;
+  c.parentElement.innerHTML = `<div class="empty">${msg}</div>`;
+}
+
+function base(extra = {}) {
+  return {
+    maintainAspectRatio: false, animation: false,
+    interaction: { mode: "index", intersect: false },
+    plugins: {
+      legend: { position: "bottom", align: "start", labels: { boxWidth: 10, boxHeight: 10, padding: 12, font: { size: 11 } } },
+      tooltip: { callbacks: { label: c => `${c.dataset.label}: ${fmt(c.parsed.y ?? c.parsed.x, 2)}` } },
+    },
+    ...extra,
+  };
+}
+
+function hbar(id, labels, datasets, opts = {}) {
+  if (!labels || !labels.length) return empty(id);
+  new Chart(document.getElementById(id), {
+    type: "bar",
+    data: { labels, datasets },
+    options: base({
+      indexAxis: "y",
+      interaction: { mode: "nearest", axis: "y", intersect: false },
+      plugins: { legend: { display: datasets.length > 1, position: "bottom", align: "start", labels: { boxWidth: 10, font: { size: 11 } } },
+                 tooltip: { callbacks: { label: c => `${c.dataset.label}: ${fmt(c.parsed.x, 1)}` } } },
+      scales: { x: { stacked: !!opts.stacked, grid: { color: css("--hair") }, ticks: { callback: v => fmt(v, 0) } },
+                y: { stacked: !!opts.stacked, grid: { display: false }, ticks: { font: { size: 11 } } } },
+    }),
+  });
 }
 
 function render() {
   const d = DATA || {};
+  const s = d.status || {}, k = d.kpi || {}, w = d.weekly;
   document.getElementById("asof").textContent =
-    `最終更新：${d.generated ? new Date(d.generated).toLocaleString("ja-JP") : "—"}　／　データ：${d.status?.first_day ?? "—"} 〜 ${d.status?.last_day ?? "—"}（米国の提出日）`;
+    `更新 ${d.generated ? new Date(d.generated).toLocaleString("ja-JP", { dateStyle: "medium", timeStyle: "short" }) : "—"}　データ ${s.first_day ?? "—"} 〜 ${s.last_day ?? "—"}`;
 
-  const k = d.kpi;
-  const kpis = k ? [
-    ["需給（直近4週）", k.net_4w], ["需給（直近13週）", k.net_13w],
-    ["需要（直近13週）", k.demand_13w], ["供給（直近13週）", -k.supply_13w],
-    ["自社株買い（直近4週）", k.buyback_4w], ["現金M&A（直近4週）", k.mergers_4w],
-    ["IPO・増資（直近4週）", -k.offerings_4w], ["株式報酬（直近4週）", -k.sbc_4w],
-    ["ATM・私募などの新株（直近4週）", -k.issuance_4w], ["転換社債（直近4週）", -k.converts_4w],
-    ["内部者の市場売却（直近4週）", -k.insider_sell_4w],
-    ["Form 144 売却予定（直近4週）", -k.form144_4w],
-  ] : [];
-  document.getElementById("kpis").innerHTML = kpis.length ? kpis.map(([l, v]) =>
-    `<div class="kpi"><div class="label">${l}</div><div class="value ${v < 0 ? "neg" : "pos"}">${fmt(v, 2)}<span class="unit">10億ドル</span></div></div>`).join("")
-    : '<p class="empty">まだデータがありません。</p>';
+  const bar = [
+    ["需給 13週", k.net_13w], ["需要 13週", k.demand_13w], ["供給 13週", k.supply_13w], ["需給 4週", k.net_4w],
+  ].map(([l, v]) => `<span>${l} <b>${v == null ? "—" : (v > 0 ? "+" : "") + fmt(v, 1)}</b></span>`).join("");
+  document.getElementById("subbar").innerHTML = bar + `<span>単位：10億ドル</span>`;
 
-  if (window.Chart && d.weekly) {
-    Chart.defaults.color = css("--quiet");
-    Chart.defaults.borderColor = css("--rule");
-    Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
-    const w = d.weekly;
-    new Chart(document.getElementById("flow"), {
-      data: { labels: w.weeks, datasets: [
-        { type: "bar", label: "IPO", data: w.ipo, backgroundColor: css("--supply"), stack: "s" },
-        { type: "bar", label: "公募・売出し", data: w.follow_on, backgroundColor: css("--supply2"), stack: "s" },
-        { type: "bar", label: "内部者の市場売却", data: w.insider_sell, backgroundColor: css("--supply3"), stack: "s" },
-        { type: "bar", label: "株式報酬", data: w.sbc, backgroundColor: css("--supply4"), stack: "s" },
-        { type: "bar", label: "ATM・私募などの新株", data: w.stock_issuance, backgroundColor: css("--supply5"), stack: "s" },
-        { type: "bar", label: "転換社債", data: w.converts, backgroundColor: css("--supply6"), stack: "s" },
-        { type: "bar", label: "自社株買い（実績の配分）", data: w.buyback_reported, backgroundColor: css("--demand"), stack: "s" },
-        { type: "bar", label: "自社株買い（推計）", data: w.buyback_estimated, backgroundColor: css("--demand2"), stack: "s" },
-        { type: "bar", label: "現金M&A", data: w.cash_mergers, backgroundColor: css("--demand3"), stack: "s" },
-        { type: "bar", label: "内部者の市場買付", data: w.insider_buy, backgroundColor: css("--demand4"), stack: "s" },
-        { type: "line", label: "需給 13週移動合計", data: w.net_13w, borderColor: css("--line"), backgroundColor: css("--line"), pointRadius: 0, borderWidth: 2, yAxisID: "y2" },
+  Chart.defaults.color = css("--quiet");
+  Chart.defaults.borderColor = css("--rule");
+  Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
+  Chart.defaults.font.size = 11;
+
+  if (!w) { ["c1", "c2", "c3", "c4", "c5"].forEach(i => empty(i)); }
+  else {
+    const labels = w.weeks.map(md);
+    const neg = a => (a || []).map(v => -(v || 0) === 0 ? 0 : -v);  // 供給は下向き（データは負の値で届く）
+    const demand = [
+      ["自社株買い（実績）", w.buyback_reported, "--d1"], ["自社株買い（推計）", w.buyback_estimated, "--d2"],
+      ["現金M&A", w.cash_mergers, "--d3"], ["内部者の買付", w.insider_buy, "--d4"],
+    ];
+    const supply = [
+      ["IPO", w.ipo, "--s1"], ["公募・売出し", w.follow_on, "--s2"], ["ATM・私募など", w.stock_issuance, "--s3"],
+      ["株式報酬", w.sbc, "--s4"], ["転換社債", w.converts, "--s6"], ["内部者の売却", w.insider_sell, "--s5"],
+    ];
+    const ds = (rows, stack) => rows.map(([l, data, c]) => ({ type: "bar", label: l, data, backgroundColor: css(c), stack, borderWidth: 0, barPercentage: 0.8, categoryPercentage: 0.85 }));
+
+    // 図表1：需給（需要は上、供給は下）
+    const net13 = w.net_13w;
+    new Chart(document.getElementById("c1"), {
+      data: { labels, datasets: [
+        ...ds(demand, "s"), ...ds(supply, "s"),
+        { type: "line", label: "需給 13週移動合計（右軸）", data: net13, borderColor: css("--line"), backgroundColor: css("--line"), borderWidth: 2, pointRadius: 0, yAxisID: "y2", tension: 0.2 },
       ] },
-      options: { maintainAspectRatio: false, interaction: { mode: "index", intersect: false },
-        scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, title: { display: true, text: "週次（10億ドル）" } },
-                  y2: { position: "right", grid: { display: false }, title: { display: true, text: "13週合計（10億ドル）" } } },
-        plugins: { tooltip: { callbacks: { label: c => `${c.dataset.label}: ${fmt(c.parsed.y, 2)}` } } } },
+      options: base({ scales: {
+        x: { stacked: true, grid: { display: false } },
+        y: { stacked: true, grid: { color: css("--hair") }, ticks: { callback: v => fmt(v, 0) } },
+        y2: { position: "right", grid: { display: false }, ticks: { callback: v => fmt(v, 0) } },
+      } }),
     });
-    new Chart(document.getElementById("insider"), {
+    const last = net13[net13.length - 1];
+    // 見出しは結論を言い切る（10億ドル → 億ドルに直して表示）
+    const oku = v => `${v >= 0 ? "+" : "−"}${fmt(Math.abs(v) * 10, 0)}億ドル`;
+    document.getElementById("t1").textContent = `浮動株ベースの需給：直近13週は${last >= 0 ? "需要超過" : "供給超過"}（${oku(last)}）`;
+
+    // 図表2：需要と供給の13週合計
+    const roll = a => a.map((_, i) => sum(a.slice(Math.max(0, i - 12), i + 1)));
+    const dem = w.weeks.map((_, i) => sum(demand.map(r => r[1]?.[i])));
+    const sup = w.weeks.map((_, i) => -sum(supply.map(r => r[1]?.[i])));
+    new Chart(document.getElementById("c2"), {
       type: "line",
-      data: { labels: w.weeks, datasets: [
-        { label: "Form 144 売却予定", data: w.form144, borderColor: css("--warn"), backgroundColor: css("--warn"), pointRadius: 0, borderWidth: 2 },
-        { label: "Form 4 市場売却", data: w.insider_sell.map(v => -v), borderColor: css("--supply"), backgroundColor: css("--supply"), pointRadius: 0, borderWidth: 2 },
+      data: { labels, datasets: [
+        { label: "需要", data: roll(dem), borderColor: css("--d2"), backgroundColor: css("--d2"), borderWidth: 2, pointRadius: 0 },
+        { label: "供給", data: roll(sup), borderColor: css("--s2"), backgroundColor: css("--s2"), borderWidth: 2, pointRadius: 0 },
       ] },
-      options: { maintainAspectRatio: false, interaction: { mode: "index", intersect: false },
-        scales: { x: { grid: { display: false } }, y: { title: { display: true, text: "10億ドル" }, beginAtZero: true } } },
+      options: base({ scales: { x: { grid: { display: false } }, y: { beginAtZero: true, grid: { color: css("--hair") }, ticks: { callback: v => fmt(v, 0) } } } }),
+    });
+    const r = roll(sup).at(-1) / Math.max(1e-9, roll(dem).at(-1));
+    document.getElementById("t2").textContent = `需要と供給（13週移動合計）：供給は需要の${fmt(r * 100, 0)}%`;
+
+    // 図表3：内部者の売り
+    const sell = neg(w.insider_sell);
+    new Chart(document.getElementById("c3"), {
+      type: "line",
+      data: { labels, datasets: [
+        { label: "Form 144 売却予定", data: w.form144, borderColor: css("--s3"), backgroundColor: css("--s3"), borderWidth: 2, pointRadius: 0, borderDash: [5, 3] },
+        { label: "Form 4 市場売却", data: sell, borderColor: css("--s1"), backgroundColor: css("--s1"), borderWidth: 2, pointRadius: 0 },
+      ] },
+      options: base({ scales: { x: { grid: { display: false } }, y: { beginAtZero: true, grid: { color: css("--hair") } } } }),
+    });
+
+    // 図表4・5：内訳
+    new Chart(document.getElementById("c4"), {
+      data: { labels, datasets: ds(demand, "d") },
+      options: base({ scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, grid: { color: css("--hair") } } } }),
+    });
+    new Chart(document.getElementById("c5"), {
+      data: { labels, datasets: ds(supply.map(([l, a, c]) => [l, neg(a), c]), "p") },
+      options: base({ scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, grid: { color: css("--hair") } } } }),
     });
   }
 
-  table("sellers", [
-    { key: "ticker", label: "銘柄" }, { key: "issuer", label: "会社名" },
-    { key: "value_musd", label: "売却額", num: true, render: r => fmt(r.value_musd) },
-  ], d.top_sellers);
+  // 図表6〜9：ランキング（横棒）
+  const tops = (d.top_sellers || []).slice(0, 10);
+  hbar("c6", tops.map(r => r.ticker ? `${r.ticker}  ${short(r.issuer)}` : short(r.issuer)),
+    [{ label: "売却額", data: tops.map(r => r.value_musd), backgroundColor: css("--s1") }]);
 
-  table("offerings", [
-    { key: "filed", label: "提出日", render: r => day(r.filed) },
-    { key: "company", label: "会社名", render: r => `<a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.company)}</a>` },
-    { key: "ticker", label: "銘柄" },
-    { key: "offering_type", label: "種類", render: r => esc(typeJa[r.offering_type] || r.offering_type) },
-    { key: "price_per_share_usd", label: "価格（ドル）", num: true, render: r => fmt(r.price_per_share_usd, 2) },
-    { key: "musd", label: "金額（100万ドル）", num: true, render: r => r.offering_type === "atm" ? `枠 ${fmt(r.atm_musd)}` : fmt(r.musd) },
-    { key: "lockup_days", label: "ロックアップ（日）", num: true, render: r => fmt(r.lockup_days, 0) },
-  ], d.offerings);
+  const offs = (d.offerings || []).filter(r => r.offering_type !== "atm" && r.offering_type !== "spac_ipo" && r.musd > 0)
+    .sort((a, b) => b.musd - a.musd).slice(0, 10);
+  const typeJa = { ipo: "IPO", follow_on: "公募", registered_direct: "直接募集", rights: "株主割当" };
+  hbar("c7", offs.map(r => `${short(r.company)}（${typeJa[r.offering_type] || r.offering_type}、${md(r.filed)}）`),
+    [{ label: "調達額", data: offs.map(r => r.musd), backgroundColor: offs.map(r => css(r.offering_type === "ipo" ? "--s1" : "--s2")) }]);
 
-  table("mergers", [
-    { key: "filed", label: "届出日", render: r => day(r.filed) },
-    { key: "target", label: "買収された会社", render: r => r.source_url ? `<a href="${esc(r.source_url)}" target="_blank" rel="noopener">${esc(r.target)}</a>` : esc(r.target) },
-    { key: "acquirer", label: "買い手" },
-    { key: "cash_per_share_usd", label: "1株当たり現金（ドル）", num: true, render: r => fmt(r.cash_per_share_usd, 2) },
-    { key: "cash_musd", label: "現金総額（100万ドル）", num: true, render: r => fmt(r.cash_musd) },
-    { key: "stock_consideration", label: "株式対価" },
-  ], d.mergers);
+  const mg = (d.mergers || []).filter(r => r.cash_musd > 0).sort((a, b) => b.cash_musd - a.cash_musd).slice(0, 10);
+  hbar("c8", mg.map(r => `${short(r.target)}（${md(r.filed)}）`),
+    [{ label: "現金対価", data: mg.map(r => r.cash_musd), backgroundColor: css("--d3") }]);
 
-  const cv = d.coverage || {};
-  const n = k => (cv[k]?.companies ?? 0).toLocaleString("ja-JP");
-  if (cv.buyback) document.getElementById("bbnote").textContent = `（対象企業：自社株買い ${n("buyback")} 社、株式報酬 ${n("sbc")} 社、新株発行 ${n("stock_issuance")} 社、社債の転換 ${n("conversion")} 社）`;
+  const cv = (d.converts || []).filter(r => r.principal_musd > 0).sort((a, b) => b.principal_musd - a.principal_musd).slice(0, 10);
+  hbar("c9", cv.map(r => `${r.ticker || short(r.issuer)}（${md(r.filed)}）`), [
+    { label: "ヘッジ売り（推計）", data: cv.map(r => r.hedge_musd), backgroundColor: css("--s6"), stack: "c" },
+    { label: "その他の発行額", data: cv.map(r => r.principal_musd - r.hedge_musd), backgroundColor: css("--s7"), stack: "c" },
+  ], { stacked: true });
 
-  table("converts", [
-    { key: "filed", label: "発表日", render: r => day(r.filed) },
-    { key: "issuer", label: "発行会社", render: r => r.url ? `<a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.issuer)}</a>` : esc(r.issuer) },
-    { key: "ticker", label: "銘柄" },
-    { key: "principal_musd", label: "発行額（100万ドル）", num: true, render: r => fmt(r.principal_musd) },
-    { key: "conversion_price_usd", label: "転換価格（ドル）", num: true, render: r => fmt(r.conversion_price_usd, 2) },
-    { key: "reference_price_usd", label: "発行時の株価（ドル）", num: true, render: r => fmt(r.reference_price_usd, 2) },
-    { key: "hedge_musd", label: "ヘッジ売り推計（100万ドル）", num: true, render: r => fmt(r.hedge_musd) },
-  ], d.converts);
-
-  table("registrations", [
-    { key: "filed", label: "提出日", render: r => day(r.filed) }, { key: "form", label: "書類" },
-    { key: "company", label: "会社名", render: r => `<a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.company)}</a>` },
-  ], d.registrations);
-
-  const s = d.status || {};
-  document.getElementById("status-lead").innerHTML = `
-    <p class="lead">処理済み ${s.days_ok ?? 0} 営業日、読み取りエラー ${s.errors ?? 0} 件、Claude API 呼び出し ${s.claude_calls ?? 0} 回。最終実行：${esc(s.last_run ?? "—")}</p>`;
-  table("status", [
-    { key: "day", label: "日付" }, { key: "state", label: "状態" },
-    { key: "filings", label: "提出書類", num: true, render: r => fmt(r.filings, 0) },
-    { key: "form4_filings", label: "Form 4", num: true, render: r => fmt(r.form4_filings, 0) },
-    { key: "form144_filings", label: "Form 144", num: true, render: r => fmt(r.form144_filings, 0) },
-    { key: "prospectuses", label: "目論見書", num: true, render: r => fmt(r.prospectuses, 0) },
-    { key: "claude_calls", label: "Claude", num: true, render: r => fmt(r.claude_calls, 0) },
-    { key: "seconds", label: "所要秒", num: true, render: r => fmt(r.seconds, 0) },
-  ], s.recent);
+  const cov = d.coverage || {}, n = x => (cov[x]?.companies ?? 0).toLocaleString("ja-JP");
+  document.getElementById("footer").innerHTML =
+    `データの状態：処理済み ${s.days_ok ?? 0} 営業日（${s.first_day ?? "—"} 〜 ${s.last_day ?? "—"}）、読み取りエラー ${s.errors ?? 0} 件、最終実行 ${s.last_run ?? "—"}。` +
+    `XBRLの対象企業：自社株買い ${n("buyback")} 社、株式報酬 ${n("sbc")} 社、新株発行 ${n("stock_issuance")} 社、社債の転換 ${n("conversion")} 社。<br>` +
+    `未計上の項目：関係者以外のロックアップ解除後の売り、株式対価の買収で渡った株の売却。本ページは公開データからの推計であり、投資助言ではありません。`;
 }
 render();
 </script>
