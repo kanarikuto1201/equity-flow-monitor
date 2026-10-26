@@ -1,5 +1,19 @@
 {
- "days": {},
- "last_run": "2026-10-26T03:53:37-04:00",
- "last_run_requests": 1
+ "days": {
+  "2026-10-23": {
+   "state": "ok",
+   "filings": 3333,
+   "form4_filings": 533,
+   "form4_errors": 0,
+   "form144_filings": 124,
+   "form144_errors": 0,
+   "prospectuses": 11,
+   "prospectus_errors": 0,
+   "claude_calls": 8,
+   "registrations": 3,
+   "seconds": 106
+  }
+ },
+ "last_run": "2026-10-26T03:56:35-04:00",
+ "last_run_requests": 670
 }

@@ -1,19 +1,5 @@
-[03:53:37 ET] 処理する日: ['2026-10-12']
-[03:53:37 ET] 2026-10-12: 失敗しました (HTTPError: 403 Client Error: Forbidden for url: https://www.sec.gov/Archives/edgar/daily-index/2026/QTR4/form.20261012.idx)
-[03:53:37 ET] Traceback (most recent call last):
-  File "/home/runner/work/equity-flow-monitor/equity-flow-monitor/efm/us/run.py", line 120, in _main
-    stats = process_day(client, day)
-            ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/equity-flow-monitor/equity-flow-monitor/efm/us/run.py", line 77, in process_day
-    entries = client.daily_index(day)
-              ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/equity-flow-monitor/equity-flow-monitor/efm/us/edgar.py", line 97, in daily_index
-    text = self.get(url).decode("latin-1")
-           ^^^^^^^^^^^^^
-  File "/home/runner/work/equity-flow-monitor/equity-flow-monitor/efm/us/edgar.py", line 80, in get
-    resp.raise_for_status()
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/requests/models.py", line 1167, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-requests.exceptions.HTTPError: 403 Client Error: Forbidden for url: https://www.sec.gov/Archives/edgar/daily-index/2026/QTR4/form.20261012.idx
-
-[03:53:37 ET] ダッシュボードを作成しました
+[03:54:49 ET] SECへの接続を確認しました（798,155 バイト）
+[03:54:49 ET] 処理する日: ['2026-10-23']
+[03:54:50 ET] 2026-10-23: 提出書類 3,333 件
+[03:56:35 ET] 2026-10-23: 完了 {'filings': 3333, 'form4_filings': 533, 'form4_errors': 0, 'form144_filings': 124, 'form144_errors': 0, 'prospectuses': 11, 'prospectus_errors': 0, 'claude_calls': 8, 'registrations': 3, 'seconds': 106}
+[03:56:35 ET] ダッシュボードを作成しました
