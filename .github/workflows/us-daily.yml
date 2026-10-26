@@ -1,0 +1,75 @@
+name: us-daily-update
+
+on:
+  schedule:
+    # 火〜土の 03:30 UTC（日本時間 12:30）。米国の前営業日分のEDGAR日次インデックスが確定した後に動かす
+    - cron: "30 3 * * 2-6"
+  workflow_dispatch:
+    inputs:
+      start:
+        description: "過去分の取り込み開始日（YYYY-MM-DD、空欄なら未処理分のみ）"
+        required: false
+      end:
+        description: "取り込み終了日（YYYY-MM-DD、空欄なら最新）"
+        required: false
+      max_days:
+        description: "1回で処理する最大日数"
+        required: false
+        default: "5"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Collect and build
+        env:
+          SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          ARGS="--max-days ${{ github.event.inputs.max_days || '5' }}"
+          if [ -n "${{ github.event.inputs.start }}" ]; then ARGS="$ARGS --start ${{ github.event.inputs.start }}"; fi
+          if [ -n "${{ github.event.inputs.end }}" ]; then ARGS="$ARGS --end ${{ github.event.inputs.end }}"; fi
+          python -m efm.us.run $ARGS
+
+      - name: Save data to the repository
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/us
+          if git diff --cached --quiet; then
+            echo "変更なし"
+          else
+            git commit -m "data(us): $(date -u +%Y-%m-%d)"
+            git pull --rebase
+            git push
+          fi
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deploy
+        uses: actions/deploy-pages@v4
