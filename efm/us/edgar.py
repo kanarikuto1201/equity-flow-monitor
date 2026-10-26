@@ -73,6 +73,15 @@ class EdgarClient:
                 continue
             if resp.status_code == 404:
                 raise EdgarNotFound(url)
+            if resp.status_code == 403:
+                body = resp.text[:400].replace("\n", " ")
+                resp.close()
+                # SECは存在しないファイルにも403を返すことがある。利用規則違反の拒否とは本文で見分ける
+                if "Undeclared Automated Tool" in body or "Request Rate Threshold" in body:
+                    raise RuntimeError(f"SECにアクセスを拒否されました（User-Agentまたはアクセス頻度）: {body[:200]}")
+                if "/daily-index/" in url:
+                    raise EdgarNotFound(url)
+                raise RuntimeError(f"403 Forbidden: {url} / {body[:200]}")
             if resp.status_code in (429, 500, 502, 503, 504):
                 resp.close()
                 time.sleep(2 ** attempt * 2)
@@ -89,6 +98,11 @@ class EdgarClient:
             resp.close()
             return b"".join(chunks)[:max_bytes]
         raise RuntimeError(f"EDGARから取得できませんでした: {url}")
+
+    def check_access(self) -> str:
+        """SECに正しくアクセスできるかを、必ず存在するファイルで確かめる。"""
+        data = self.get("https://www.sec.gov/files/company_tickers.json")
+        return f"SECへの接続を確認しました（{len(data):,} バイト）"
 
     def daily_index(self, day: date) -> list[IndexEntry]:
         """その日に提出された全書類の一覧（form.YYYYMMDD.idx）を返す。"""

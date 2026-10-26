@@ -113,6 +113,7 @@ def _main(argv=None) -> int:
     failures = 0
     if not args.build_only:
         client = EdgarClient()
+        log(client.check_access())
         days = plan_days(status, args.start, args.end, args.max_days)
         log(f"処理する日: {[d.isoformat() for d in days] or 'なし'}")
         for day in days:
