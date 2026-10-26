@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import sys
 import time
+import traceback
 from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
 
@@ -25,8 +26,25 @@ from .edgar import EdgarClient, EdgarNotFound
 ET_ZONE = ZoneInfo("America/New_York")
 
 
+LOG_LINES: list[str] = []
+
+
 def log(msg: str) -> None:
-    print(f"[{datetime.now(ET_ZONE):%H:%M:%S} ET] {msg}", flush=True)
+    line = f"[{datetime.now(ET_ZONE):%H:%M:%S} ET] {msg}"
+    LOG_LINES.append(line)
+    print(line, flush=True)
+
+
+def error(msg: str) -> None:
+    """GitHubの画面に注釈として表示されるエラー。"""
+    log(msg)
+    print(f"::error::{msg}", flush=True)
+
+
+def save_log() -> None:
+    folder = STORE.base / "logs"
+    folder.mkdir(parents=True, exist_ok=True)
+    (folder / "last_run.log").write_text("\n".join(LOG_LINES) + "\n", encoding="utf-8")
 
 
 def business_days(start: date, end: date):
@@ -73,6 +91,17 @@ def process_day(client: EdgarClient, day: date) -> dict:
 
 
 def main(argv=None) -> int:
+    try:
+        return _main(argv)
+    except Exception as exc:
+        error(f"処理全体が止まりました ({type(exc).__name__}: {exc})")
+        log(traceback.format_exc())
+        return 1
+    finally:
+        save_log()
+
+
+def _main(argv=None) -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--start", type=date.fromisoformat)
     p.add_argument("--end", type=date.fromisoformat)
@@ -99,7 +128,8 @@ def main(argv=None) -> int:
                     log(f"{day}: インデックスが未確定のため次回に回します")
             except Exception as exc:  # 1日分の失敗で全体を止めない
                 failures += 1
-                log(f"{day}: 失敗しました ({type(exc).__name__}: {exc})")
+                error(f"{day}: 失敗しました ({type(exc).__name__}: {exc})")
+                log(traceback.format_exc())
             STORE.save_status(status)
         status["last_run"] = datetime.now(ET_ZONE).isoformat(timespec="seconds")
         status["last_run_requests"] = client.request_count
