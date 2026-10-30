@@ -1,11 +1,11 @@
-[06:17:22 ET] SECへの接続を確認しました（798,077 バイト）
-[06:17:22 ET] 処理する日: ['2026-10-28']
-[06:17:22 ET] 2026-10-28: 提出書類 3,556 件
-[06:18:36 ET] 2026-10-28: 完了 {'filings': 3556, 'form4_filings': 236, 'form4_errors': 0, 'form144_filings': 54, 'form144_errors': 0, 'prospectuses': 20, 'prospectus_errors': 0, 'claude_calls': 11, 'registrations': 1, 'delistings': 1, 'cash_mergers': 0, 'merger_errors': 0, 'convert_docs': 19, 'convert_pricings': 0, 'convert_errors': 0, 'seconds': 74}
-[06:18:36 ET] XBRL：10-Q / 10-K を出した 163 社を更新します
-[06:18:36 ET] 上場会社の一覧: 6,055 社
-[06:19:03 ET] 自社株買いの四半期データ: 1,813 社、64,795 四半期
-[06:19:58 ET] 社員への株式報酬の四半期データ: 2,926 社、127,600 四半期
-[06:20:07 ET] 新株発行（ATM・私募など）の四半期データ: 1,133 社、25,889 四半期
-[06:20:07 ET] 社債の株式転換の四半期データ: 36 社、158 四半期
-[06:20:11 ET] ダッシュボードを作成しました
+[06:19:03 ET] SECへの接続を確認しました（798,077 バイト）
+[06:19:03 ET] 処理する日: ['2026-10-29']
+[06:19:03 ET] 2026-10-29: 提出書類 4,268 件
+[06:20:16 ET] 2026-10-29: 完了 {'filings': 4268, 'form4_filings': 262, 'form4_errors': 0, 'form144_filings': 100, 'form144_errors': 0, 'prospectuses': 11, 'prospectus_errors': 0, 'claude_calls': 6, 'registrations': 4, 'delistings': 3, 'cash_mergers': 0, 'merger_errors': 0, 'convert_docs': 34, 'convert_pricings': 0, 'convert_errors': 0, 'seconds': 73}
+[06:20:16 ET] XBRL：10-Q / 10-K を出した 253 社を更新します
+[06:20:16 ET] 上場会社の一覧: 6,055 社
+[06:20:57 ET] 自社株買いの四半期データ: 1,822 社、65,420 四半期
+[06:22:24 ET] 社員への株式報酬の四半期データ: 2,938 社、128,447 四半期
+[06:22:35 ET] 新株発行（ATM・私募など）の四半期データ: 1,134 社、25,979 四半期
+[06:22:35 ET] 社債の株式転換の四半期データ: 36 社、158 四半期
+[06:22:40 ET] ダッシュボードを作成しました
