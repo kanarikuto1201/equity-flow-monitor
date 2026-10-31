@@ -1373,8 +1373,27 @@
    "convert_pricings": 0,
    "convert_errors": 0,
    "seconds": 73
+  },
+  "2026-10-30": {
+   "state": "ok",
+   "filings": 4564,
+   "form4_filings": 315,
+   "form4_errors": 0,
+   "form144_filings": 96,
+   "form144_errors": 0,
+   "prospectuses": 17,
+   "prospectus_errors": 0,
+   "claude_calls": 14,
+   "registrations": 7,
+   "delistings": 5,
+   "cash_mergers": 0,
+   "merger_errors": 0,
+   "convert_docs": 23,
+   "convert_pricings": 0,
+   "convert_errors": 0,
+   "seconds": 90
   }
  },
- "last_run": "2026-10-30T06:22:35-04:00",
- "last_run_requests": 1380
+ "last_run": "2026-10-31T05:54:52-04:00",
+ "last_run_requests": 1044
 }
